@@ -1,5 +1,5 @@
 {
-  "name": "vakulenko_shopify_app",
+  "name": "shopify_app",
   "private": true,
   "dependencies": {
     "@rails/webpacker": "5.2.1",
