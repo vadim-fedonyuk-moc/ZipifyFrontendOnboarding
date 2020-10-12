@@ -10,7 +10,7 @@ module Metafields
 
     def execute
       metafield = find_metafield(@banner.product_id)
-      return OpenStruct.new(success?: false, errors: I18n.t('errors.not_found', entity: 'Metafield')) if metafield.nil?
+      return OpenStruct.new(success?: false, errors: I18n.t('errors.not_found', entity: 'Product')) if metafield.nil?
       metafield.attributes = metafield_attrs
       return OpenStruct.new(success?: false, errors: metafield.errors.full_messages) unless metafield.save
       OpenStruct.new(success?: true, errors: nil)
