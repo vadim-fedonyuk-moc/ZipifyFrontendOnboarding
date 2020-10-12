@@ -1,0 +1,4 @@
+en:
+  errors:
+    unauthorized: 'Access denied'
+    not_found: '%{entity} not found'

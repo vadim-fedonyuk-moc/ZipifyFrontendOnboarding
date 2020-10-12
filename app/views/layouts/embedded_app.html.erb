@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <% application_name = ShopifyApp.configuration.application_name %>
+    <title><%= application_name %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application' %>
+    <script src="https://unpkg.com/@shopify/app-bridge"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+  <body>
+    <%= render 'layouts/flash_messages' %>
+
+    <%= content_tag(:div, nil, id: 'shopify-app-init', data: {
+      api_key: ShopifyApp.configuration.api_key,
+      shop_origin: @shop_origin || (@current_shopify_session.domain if @current_shopify_session),
+      debug: Rails.env.development?
+    } ) %>
+
+    <%= yield %>
+
+    <% if content_for?(:javascript) %>
+      <div id="ContentForJavascript" data-turbolinks-temporary>
+        <%= yield :javascript %>
+      </div>
+    <% end %>
+  </body>
+</html>
