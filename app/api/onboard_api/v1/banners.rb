@@ -28,6 +28,7 @@ module OnboardApi
         desc 'Create banner'
         params do
           requires :banner, type: Hash do
+            requires :title, type: String, desc: 'Name of the banner'
             requires :style, type: Hash, desc: 'Styles for banner'
             requires :content, type: String, desc: 'Banner content'
             requires :product_id, type: Integer, desc: 'Product to bind banner to'
@@ -46,6 +47,7 @@ module OnboardApi
         desc 'Update banner'
         params do
           requires :banner, type: Hash do
+            requires :title, type: String, desc: 'Name of the banner'
             requires :style, type: Hash, desc: 'Styles for banner'
             requires :content, type: String, desc: 'Banner content'
             requires :product_id, type: Integer, desc: 'Product to bind banner to'

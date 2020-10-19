@@ -3,6 +3,7 @@ module OnboardApi
     module V1
       class Banner < OnboardApi::Entities::BaseEntity
         expose :id
+        expose :title
         expose :style
         expose :content
         expose :product_id
