@@ -25,14 +25,7 @@ module OnboardApi
         end
 
         desc 'Create banner'
-        params do
-          requires :banner, type: Hash do
-            requires :title, type: String, desc: 'Name of the banner'
-            requires :style, type: Hash, desc: 'Styles for banner'
-            requires :content, type: String, desc: 'Banner content'
-            requires :product_id, type: Integer, desc: 'Product to bind banner to'
-          end
-        end
+        params { use :full_banner_params }
         post do
           banner = @shop.banners.new(params[:banner])
           raise_error(banner.errors, 422) unless banner.save
@@ -42,14 +35,7 @@ module OnboardApi
         end
 
         desc 'Update banner'
-        params do
-          requires :banner, type: Hash do
-            requires :title, type: String, desc: 'Name of the banner'
-            requires :style, type: Hash, desc: 'Styles for banner'
-            requires :content, type: String, desc: 'Banner content'
-            requires :product_id, type: Integer, desc: 'Product to bind banner to'
-          end
-        end
+        params { use :full_banner_params }
         put ':banner_id' do
           set_banner!
           raise_error(result.errors, 422) unless @banner.update(params[:banner])
