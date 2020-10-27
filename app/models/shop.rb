@@ -1,4 +1,30 @@
 # frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: shops
+#
+#  id             :bigint           not null, primary key
+#  country_code   :string
+#  country_name   :string
+#  currency       :string
+#  customer_email :string
+#  email          :string
+#  iana_timezone  :string
+#  money_format   :string
+#  name           :string
+#  shop_owner     :string
+#  shopify_domain :string           not null
+#  shopify_token  :string           not null
+#  timezone       :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+# Indexes
+#
+#  index_shops_on_shopify_domain  (shopify_domain) UNIQUE
+#
+
 class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorage
 

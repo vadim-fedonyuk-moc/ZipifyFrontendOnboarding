@@ -10,21 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_19_133620) do
+ActiveRecord::Schema.define(version: 2020_10_27_100747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "banners", force: :cascade do |t|
-    t.bigint "shop_id"
-    t.json "style"
-    t.text "content"
-    t.bigint "product_id"
+    t.bigint "shop_id", null: false
+    t.json "style", null: false
+    t.text "content", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title", null: false
     t.index ["shop_id"], name: "index_banners_on_shop_id"
-    t.index ["title", "product_id"], name: "index_banners_on_title_and_product_id", unique: true
+    t.index ["title", "shop_id"], name: "index_banners_on_title_and_shop_id", unique: true
   end
 
   create_table "shops", force: :cascade do |t|

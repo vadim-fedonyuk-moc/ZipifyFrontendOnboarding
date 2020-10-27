@@ -2,26 +2,25 @@ module OnboardApi
   module V1
     class Banners < Grape::API
       resources :banners do
+        helpers OnboardApi::Helpers::BannersHelpers
+
         desc 'Get banners'
         get do
           success(present(@shop.banners, with: OnboardApi::Entities::V1::Banner))
         end
 
         desc 'Get specific banner'
-        get ':id' do
-          banner = Banner.find_by(id: params[:id])
-          raise_error(I18n.t('errors.not_found', entity: Banner), 404) if banner.blank?
-          success(present(banner, with: OnboardApi::Entities::V1::Banner))
+        get ':banner_id' do
+          set_banner!
+          success(present(@banner, with: OnboardApi::Entities::V1::Banner))
         end
 
         desc 'Delete banner'
-        delete ':id' do
-          banner = Banner.find_by(id: params[:id])
-          raise_error(I18n.t('errors.not_found', entity: Banner), 404) if banner.blank?
-
-          result = ::Metafields::DeleteBanner.call(banner)
-          banner.destroy
+        delete ':banner_id' do
+          set_banner!
+          result = ::Metafields::DeleteBanner.call(@banner)
           raise_error(result.errors, 422) unless result.success?
+          @banner.destroy
           success({})
         end
 
@@ -36,11 +35,9 @@ module OnboardApi
         end
         post do
           banner = @shop.banners.new(params[:banner])
-          result = ::Metafields::CreateBanner.call(banner)
-
-          raise_error(result.errors, 422) unless result.success?
           raise_error(banner.errors, 422) unless banner.save
-
+          result = ::Metafields::CreateBanner.call(banner)
+          raise_error(result.errors, 422) unless result.success?
           success(present(banner, with: OnboardApi::Entities::V1::Banner))
         end
 
@@ -53,14 +50,12 @@ module OnboardApi
             requires :product_id, type: Integer, desc: 'Product to bind banner to'
           end
         end
-        put ':id' do
-          banner = Banner.find_by(id: params[:id])
-          raise_error(I18n.t('errors.not_found', entity: Banner), 404) if banner.blank?
-
-          banner.update(params[:banner])
-          result = ::Metafields::UpdateBanner.call(banner)
+        put ':banner_id' do
+          set_banner!
+          raise_error(result.errors, 422) unless @banner.update(params[:banner])
+          result = ::Metafields::UpdateBanner.call(@banner)
           raise_error(result.errors, 422) unless result.success?
-          success(present(banner, with: OnboardApi::Entities::V1::Banner))
+          success(present(@banner, with: OnboardApi::Entities::V1::Banner))
         end
       end
     end
