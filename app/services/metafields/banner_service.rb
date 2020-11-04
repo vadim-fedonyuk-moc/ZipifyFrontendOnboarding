@@ -14,7 +14,7 @@ module Metafields
     def find_metafield(product_id)
       shopify_product = ShopifyAPI::Product.find(product_id)
       shopify_product.metafields.find { |m| m.attributes[:namespace] == METAFIELD_NAMESPACE }
-    rescue StandardError => _
+    rescue NotFoundException => _
       nil
     end
 
