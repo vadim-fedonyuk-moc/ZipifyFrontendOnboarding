@@ -28,9 +28,10 @@ module OnboardApi
         params { use :full_banner_params }
         post do
           banner = @shop.banners.new(params[:banner])
-          raise_error(banner.errors, 422) unless banner.save
+          raise_error(banner.errors, 422) if banner.invalid?
           result = ::Metafields::CreateBanner.call(banner)
           raise_error(result.errors, 422) unless result.success?
+          banner.save
           success(present(banner, with: OnboardApi::Entities::V1::Banner))
         end
 
@@ -38,9 +39,11 @@ module OnboardApi
         params { use :full_banner_params }
         put ':banner_id' do
           set_banner!
-          raise_error(result.errors, 422) unless @banner.update(params[:banner])
+          @banner.attributes = params[:banner]
+          raise_error(result.errors, 422) if @banner.invalid?
           result = ::Metafields::UpdateBanner.call(@banner)
           raise_error(result.errors, 422) unless result.success?
+          @banner.save
           success(present(@banner, with: OnboardApi::Entities::V1::Banner))
         end
       end
