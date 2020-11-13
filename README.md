@@ -1,24 +1,13 @@
-# README
+# Setup project 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Install node 
+- Install yarn
+- Install ruby 
+- Install postgres
 
-Things you may want to cover:
+## Run project 
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- bundle install
+- rails db:create
+- rails db:migrate
+- rails s 
