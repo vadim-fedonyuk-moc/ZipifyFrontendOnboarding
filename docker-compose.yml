@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    image: postgres:10-alpine
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    networks:
+      - zipify_banners
+    env_file: .env
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  web:
+    container_name: web
+    build: .
+    command: bundle exec rails server --binding 0.0.0.0 --port 7000
+    tty: true
+    stdin_open: true
+    networks:
+      - zipify_banners
+    volumes:
+      - .:/app
+      - pages-bundle:/bundle
+    ports:
+      - 7000:7000
+    depends_on:
+      - db
+    env_file: .env
+
+volumes:
+  data-postgres:
+    driver: local
+  pages-bundle:
+    driver: local
+
+networks:
+  zipify_banners:
