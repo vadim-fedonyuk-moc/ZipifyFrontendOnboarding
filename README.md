@@ -11,3 +11,7 @@
 - rails db:create
 - rails db:migrate
 - rails s 
+
+
+## API Documentation
+Swagger is available at http://localhost:7000/apidoc

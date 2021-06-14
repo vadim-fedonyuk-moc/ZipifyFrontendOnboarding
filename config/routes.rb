@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  mount GrapeSwaggerRails::Engine => '/apidoc'
   mount ShopifyApp::Engine, at: '/'
   mount OnboardApi::Main => '/'
 

@@ -1,3 +1,5 @@
+require 'grape-swagger'
+
 module OnboardApi
   class Main < Grape::API
     content_type :json, 'application/json'
@@ -18,5 +20,11 @@ module OnboardApi
     end
 
     mount OnboardApi::V1::Root
+
+    add_swagger_documentation(
+      info: {
+        title: 'Zipify Frontend Onboarding API'
+      }
+    )
   end
 end
