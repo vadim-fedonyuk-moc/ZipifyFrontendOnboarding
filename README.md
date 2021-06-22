@@ -1,16 +1,33 @@
 # Setup project 
 
-- Install node 
+## Local development
+
+**Prepare environment**
+
+- Install node 14.x using nvm
 - Install yarn
-- Install ruby 
+- Install ruby 2.6.5 using rvm
 - Install postgres
+- Create .env file based on .env.example
 
-## Run project 
+**Up project**
 
-- bundle install
-- rails db:create
-- rails db:migrate
-- rails s 
+```
+bundle install
+rails db:create
+rails db:migrate
+rails s 
+```
+
+## Docker development
+- Create .env file based on .env.example
+
+```
+docker-compose build
+docker-compose run --rm web bundle exec rails db:create
+docker-compose run --rm web bundle exec rails db:migrate
+docker-compose up
+```
 
 
 ## API Documentation
