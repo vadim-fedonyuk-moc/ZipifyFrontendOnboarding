@@ -8,6 +8,7 @@
 - Install yarn
 - Install ruby 2.6.5 using rvm
 - Install postgres
+- Create .env file based on .env.example
 
 **Up project**
 
@@ -19,6 +20,8 @@ rails s
 ```
 
 ## Docker development
+- Create .env file based on .env.example
+
 ```
 docker-compose build
 docker-compose run --rm web bundle exec rails db:create
