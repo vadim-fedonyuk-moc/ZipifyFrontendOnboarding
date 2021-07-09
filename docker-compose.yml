@@ -10,7 +10,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .:/app:delegated
+      - .:/app
       - data-node-modules:/app/node_modules
     tty: true
     stdin_open: true
@@ -31,7 +31,7 @@ services:
     networks:
       - zipify_banners
     volumes:
-      - .:/app:delegated
+      - .:/app
       - pages-bundle:/bundle
     ports:
       - 7000:7000

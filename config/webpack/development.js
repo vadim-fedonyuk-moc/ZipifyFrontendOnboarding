@@ -17,7 +17,7 @@ module.exports = {
         filename: '[name].js',
         path: output,
         publicPath,
-        hotUpdateChunkFilename: 'hot/[id].[contenthash].hot-update.js',
+        hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
         hotUpdateMainFilename: 'hot/[fullhash].hot-update.json'
     },
     devServer: {
@@ -51,7 +51,10 @@ module.exports = {
                 use: [
                     {
                         loader: 'file-loader',
-                        options: { name: '[name].[ext]' }
+                        options: {
+                            name: '[name].[ext]',
+                            esModule: false
+                        }
                     }
                 ]
             },
