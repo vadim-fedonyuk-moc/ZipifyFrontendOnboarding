@@ -1,8 +1,46 @@
 version: '3.9'
 
 services:
+  frontend:
+    container_name: zb-frontend
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    command: yarn start
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app:delegated
+      - data-node-modules:/app/node_modules
+    tty: true
+    stdin_open: true
+    env_file: .env
+    networks:
+      - zipify_banners
+    environment:
+      - WEBPACK_HOST=0.0.0.0
+
+  api:
+    container_name: zb-api
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    command: bundle exec rails server --binding 0.0.0.0 --port 7000
+    tty: true
+    stdin_open: true
+    networks:
+      - zipify_banners
+    volumes:
+      - .:/app:delegated
+      - pages-bundle:/bundle
+    ports:
+      - 7000:7000
+    depends_on:
+      - db
+    env_file: .env
+
   db:
-    container_name: db
+    container_name: zb-postgres
     image: postgres:10-alpine
     volumes:
       - data-postgres:/var/lib/postgresql/data
@@ -12,27 +50,12 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
 
-  web:
-    container_name: web
-    build: .
-    command: bundle exec rails server --binding 0.0.0.0 --port 7000
-    tty: true
-    stdin_open: true
-    networks:
-      - zipify_banners
-    volumes:
-      - .:/app
-      - pages-bundle:/bundle
-    ports:
-      - 7000:7000
-    depends_on:
-      - db
-    env_file: .env
-
 volumes:
   data-postgres:
     driver: local
   pages-bundle:
+    driver: local
+  data-node-modules:
     driver: local
 
 networks:
