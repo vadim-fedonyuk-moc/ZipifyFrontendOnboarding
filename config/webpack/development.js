@@ -2,10 +2,10 @@ const { HotModuleReplacementPlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const { pathFromRoot } = require('./utils');
+const { pathFromRoot, readSslKey } = require('./utils');
 const { manifest, output } = require('./settings');
 
-const publicPath = 'http://localhost:8080/';
+const publicPath = 'https://localhost:8080/';
 
 module.exports = {
     mode: 'development',
@@ -23,6 +23,11 @@ module.exports = {
     devServer: {
         host: process.env.WEBPACK_HOST || 'localhost',
         port: 8080,
+        https: {
+            key: readSslKey('key'),
+            cert: readSslKey('crt'),
+            ca: readSslKey('pem')
+        },
         compress: true,
         inline: true,
         hot: true,
