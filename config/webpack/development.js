@@ -1,8 +1,8 @@
-const { HotModuleReplacementPlugin } = require('webpack');
+const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const { pathFromRoot, readSslKey } = require('./utils');
+const { pathFromRoot } = require('./utils');
 const { manifest, output } = require('./settings');
 
 const publicPath = 'https://localhost:8080/';
@@ -23,11 +23,6 @@ module.exports = {
     devServer: {
         host: process.env.WEBPACK_HOST || 'localhost',
         port: 8080,
-        https: {
-            key: readSslKey('key'),
-            cert: readSslKey('crt'),
-            ca: readSslKey('pem')
-        },
         compress: true,
         inline: true,
         hot: true,
@@ -114,6 +109,9 @@ module.exports = {
             fileName: manifest,
             publicPath,
             writeToFileEmit: true
+        }),
+        new DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         })
     ]
 };
