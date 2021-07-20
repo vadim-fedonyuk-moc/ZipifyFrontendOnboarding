@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -42,7 +43,13 @@ module.exports = {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        }
+        },
+        https: {
+            key: fs.readFileSync('config/webpack/ssl/server.key', 'utf8'),
+            cert: fs.readFileSync('config/webpack/ssl/server.crt', 'utf8'),
+            ca: fs.readFileSync('config/webpack/ssl/ca.pem', 'utf8'),
+            passphrase: 'test'
+        },
     },
     module: {
         rules: [
