@@ -1,7 +1,8 @@
 import '../styles/application.css';
+import Vue from 'vue';
+import App from 'App';
 
-// Here's your starting point for {javascript, vue} development
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log(document.querySelector('[data-app]'));
-})
+new Vue({
+   el: "app",
+    render: h => h(App)
+});
