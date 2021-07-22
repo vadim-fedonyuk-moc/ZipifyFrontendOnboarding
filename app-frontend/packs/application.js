@@ -1,8 +1,10 @@
 import '../styles/application.css';
 import Vue from 'vue';
-import App from 'App';
+import App from './App.vue';
+import store from './store/store';
 
 new Vue({
-   el: "app",
-    render: h => h(App)
+	store,
+	el: "app",
+	render: h => h(App),
 });
