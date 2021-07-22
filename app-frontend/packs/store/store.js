@@ -9,6 +9,9 @@ const mutations = {
 		state.banner.content = banner.content
 		state.banner.style = banner.style
 		state.banner.product_id = banner.product_id
+	},
+	FETCH_BANNERS(state, banners) {
+		state.bannersData.push(banners);
 	}
 }
 
@@ -20,11 +23,12 @@ const state = {
 		style: { key: '#hhfdfjhd' },
 		product_id: 6806344794283,
 	},
+	bannersData: []
 }
 
 const getters = {
-	getBanner: state => {
-		return state.banner
+	getBannersData: state => {
+		return state.bannersData
 	}
 }
 
@@ -36,19 +40,25 @@ const actions = {
 	},
 
 	getBanners({ commit }) {
-		fetch("api/v1/banners").then((response) => console.log(response))
+		fetch("api/v1/banners")
+			.then(response => response.json())
+			.then((response) => {
+				console.log(response.data[0]);
+				commit("FETCH_BANNERS", response.data);
+			});
 	},
 
-	createBanner({ commit }) {
+	createBanner({ commit }, data) {
+		const { title, content, bannerColor, productId } = data;
 		const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				banner: {
-					title: state.banner.title,
-					content: state.banner.content,
-					style: state.banner.style,
-					product_id: state.banner.product_id,
+					title: title,
+					content: content,
+					style: { key: bannerColor },
+					product_id: productId,
 				},
 			}),
 		};

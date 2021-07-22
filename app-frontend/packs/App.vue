@@ -38,6 +38,7 @@
           placeholder="#..."
         />
       </p>
+      {{ this.$store.state.getBannersData }}
       <p>
         <button type="submit">Add</button>
       </p>
@@ -52,6 +53,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -61,6 +64,13 @@ export default {
       bannerId: 0,
       productId: 0,
     };
+  },
+  mounted() {
+    console.log(this.$store.getters.getBannersData);
+  },
+
+  computed: {
+    ...mapGetters(["getBannersData"]),
   },
 
   methods: {
@@ -73,7 +83,12 @@ export default {
     },
 
     createBanner() {
-      this.$store.dispatch("createBanner");
+      this.$store.dispatch("createBanner", {
+        title: this.bannerTitle,
+        content: this.bannerContent,
+        bannerColor: this.bannerColor,
+        productId: this.productId,
+      });
     },
 
     deleteBanner() {
