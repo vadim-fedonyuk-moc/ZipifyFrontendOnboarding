@@ -15,8 +15,8 @@ const mutations = {
 const state = {
 	banner: {
 		bannerId: 7,
-		title: 'tithjhle',
-		content: 'contekjjnt',
+		title: 'title',
+		content: 'new content',
 		style: { key: '#hhfdfjhd' },
 		product_id: 6806344794283,
 	},

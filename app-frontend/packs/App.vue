@@ -39,13 +39,13 @@
         />
       </p>
       <p>
-        <button type="submit">Add banner</button>
+        <button type="submit">Add</button>
       </p>
     </form>
     <label for="bannerId">Banner id:</label>
     <input id="bannerId" type="number" v-model="bannerId" />
     <button v-on:click="deleteBanner()">delete</button>
-    <button v-on:click="updateBanner()">Update</button>
+    <button v-on:click="updateBanner()">update</button>
     <button v-on:click="getBanners()">get banners</button>
     <button v-on:click="getBannerById()">get banner</button>
   </div>
@@ -61,14 +61,6 @@ export default {
       bannerId: 0,
       productId: 0,
     };
-  },
-  computed: {
-    titles() {
-      return this.$store.state.titles;
-    },
-    banner() {
-      return this.$store.getters.getBanner;
-    },
   },
 
   methods: {
