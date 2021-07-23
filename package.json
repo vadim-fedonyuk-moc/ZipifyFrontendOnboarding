@@ -5,6 +5,7 @@
     "start": "NODE_ENV=development webpack serve --progress"
   },
   "dependencies": {
+    "@shopify/app-bridge": "^2.0.3",
     "axios": "^0.21.1",
     "vue": "^2.6.14",
     "vue-axios": "^3.2.4",

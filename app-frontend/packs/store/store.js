@@ -11,11 +11,23 @@ const mutations = {
 		state.banner.product_id = banner.product_id
 	},
 	FETCH_BANNERS(state, banners) {
+		if ((state.bannersData).length) {
+			state.bannersData = [];
+		}
 		state.bannersData.push(banners);
+	},
+	DELETE_BANNER(state, id) {
+		let index = state.bannersData.findIndex(banner => banner.id == id)
+		state.bannersData.splice(index, 1)
 	}
 }
 
 const state = {
+	productId: [
+		6806344794283,
+		6799744958635,
+		6806345547947
+	],
 	banner: {
 		bannerId: 7,
 		title: 'title',
@@ -43,7 +55,6 @@ const actions = {
 		fetch("api/v1/banners")
 			.then(response => response.json())
 			.then((response) => {
-				console.log(response.data[0]);
 				commit("FETCH_BANNERS", response.data);
 			});
 	},
@@ -62,6 +73,7 @@ const actions = {
 				},
 			}),
 		};
+		console.log(productId);
 		fetch("api/v1/banners", requestOptions).then((response) =>
 			console.log(response)
 		);
@@ -86,15 +98,17 @@ const actions = {
 		);
 	},
 
-	deleteBanner({ commit }) {
+	deleteBanner({ commit }, bannerId) {
 		const requestOptions = {
 			method: "DELETE",
 			headers: { "Content-Type": "application/json" },
 		};
-		console.log(state.banner.bannerId);
-		fetch("api/v1/banners/" + state.banner.bannerId, requestOptions).then(
-			(response) => console.log(response)
-		);
+		bannerId = bannerId.bannerId;
+		fetch("api/v1/banners/" + bannerId, requestOptions)
+			.then((response) => {
+				console.log(response)
+				commit('DELETE_BANNER', bannerId)
+			});
 	}
 }
 

@@ -71,7 +71,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: {cacheDirectory: true}
+                    options: { cacheDirectory: true }
                 }
             },
             {
@@ -80,7 +80,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: {sourceMap: true}
+                        options: { sourceMap: true }
                     },
                     {
                         loader: 'postcss-loader'
@@ -118,7 +118,7 @@ module.exports = {
             writeToFileEmit: true
         }),
         new DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            'process.env': JSON.stringify({ ...process.env })
         })
     ]
 };
