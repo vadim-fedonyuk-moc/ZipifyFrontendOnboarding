@@ -7,31 +7,15 @@
     <button v-on:click="showBanners()">show banner</button>
     <banner-list :bannersData="bannersData"></banner-list>
     <!-- <button type="button" @click="showModal">Open modal</button> -->
-    <div v-if="isDisplayModal">
-      <banner-modal-form></banner-modal-form>
-    </div>
+    <BannerModalForm />
+    <BannerList />
     <button @click="isDisplayModal = !isDisplayModal">Open modal</button>
   </div>
 </template>
 
 <script>
-import createApp from "@shopify/app-bridge";
-import { ResourcePicker } from "@shopify/app-bridge/actions";
-
 import BannerList from "./components/BannerList.vue";
 import BannerModalForm from "./shared/BannerModalForm.vue";
-
-const apiKey = process.env.SHOPIFY_API_KEY;
-const decodedHost = "storozheko1.myshopify.com";
-const app = createApp({
-  apiKey,
-  host: btoa(decodedHost),
-});
-
-const bannerPicker = ResourcePicker.create(app, {
-  resourceType: ResourcePicker.ResourceType.Product,
-  selectMultiple: false,
-});
 
 export default {
   components: {
@@ -55,7 +39,6 @@ export default {
   },
   methods: {
     async getBanners() {
-      console.log(process.env);
       await this.$store.dispatch("getBanners");
       this.bannersData = this.$store.getters.getBannersData;
     },
@@ -75,13 +58,6 @@ export default {
         content: this.bannerContent,
         bannerColor: this.bannerColor,
         productId: this.productId,
-      });
-    },
-    openResourcePicker() {
-      bannerPicker.dispatch(ResourcePicker.Action.OPEN);
-      bannerPicker.subscribe(ResourcePicker.Action.SELECT, (selectPayload) => {
-        this.productId = selectPayload.selection[0].id;
-        this.productId = this.productId.replace("gid://shopify/Product/", "");
       });
     },
   },
