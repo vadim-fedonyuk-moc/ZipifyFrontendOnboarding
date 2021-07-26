@@ -1,40 +1,52 @@
 <template>
   <div>
-    <!-- <transition name="modal"> -->
-      <!-- <div
-        v-if="isDisplayModal"
-        @click.self="isDisplayModal = false"
-      > -->
-      <form @submit.prevent="createBanner()" class="form">
-        <label for="bannerTitle">Title:</label>
-        <input
-          id="bannerTitle"
-          v-model="bannerTitle"
-          type="text"
-          name="bannerTitle"
-        />
-        <label for="bannerContent">Content:</label>
-        <input
-          id="bannerContent"
-          v-model="bannerContent"
-          type="text"
-          name="bannerContent"
-        />
-        <label for="productId">Product Id:</label>
-        <button @click="openResourcePicker()">select product</button>
-        <label for="bannerColor">Banner color:</label>
-        <input
-          id="bannerColor"
-          v-model="bannerColor"
-          type="text"
-          name="bannerColor"
-          placeholder="#..."
-        />
-        <button type="submit">Add</button>
-      </form>
-      <!-- </div> -->
-      <v-color-picker dot-size="25" swatches-max-height="200"></v-color-picker>
-    <!-- </transition> -->
+    <transition name="modal">
+      <div class="modal-background">
+        <div class="modal">
+          <h2 class="modal__title">Add your banner</h2>
+          <form @submit.prevent="createBanner" class="modal__form form">
+            <label for="bannerTitle">Title:</label>
+            <input
+              id="bannerTitle"
+              v-model="bannerTitle"
+              type="text"
+              name="bannerTitle"
+            />
+            <label for="bannerContent">Content:</label>
+            <input
+              id="bannerContent"
+              v-model="bannerContent"
+              type="text"
+              name="bannerContent"
+            />
+            <label for="productId">Product Id:</label>
+            <button @click="openResourcePicker()">select product</button>
+            <div v-if="productTitle != ''">
+              <p># {{ productTitle }}</p>
+            </div>
+            <label for="bannerColor">Banner color:</label>
+            <input
+              id="bannerColor"
+              v-model="bannerColor"
+              type="text"
+              name="bannerColor"
+              placeholder="#..."
+            />
+            <button type="submit" @click="saveDataForm" class="form__btn">
+              Save
+            </button>
+          </form>
+          <button
+            type="button"
+            @click="close"
+            class="form__btn form__btn--closing"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </transition>
+    <div></div>
   </div>
 </template>
 
@@ -56,20 +68,56 @@ const bannerPicker = ResourcePicker.create(app, {
 
 export default {
   name: "BannerModalForm",
+  props: {
+    banner: {
+      title: String,
+      content: String,
+      style: {
+        key: String,
+      },
+      product_id: Number,
+    },
+  },
   data() {
     return {
       bannerTitle: "",
       bannerContent: "",
       bannerColor: "",
-      bannerId: 0,
       productId: 0,
-      bannersData: [],
-      isDisplayModal: false,
+      productTitle: "",
+      // ewew
+      showModal: false,
     };
   },
+  created() {
+    this.showModal = true;
+  },
+  mounted() {
+    if (this.banner) {
+      console.log("+");
+      this.bannerTitle = this.banner.title;
+      this.bannerContent = this.banner.content;
+      this.bannerColor = this.banner.style.key;
+      this.productTitle = this.banner.product_id;
+    }
+  },
   methods: {
-    createBanner() {
-      this.$store.dispatch("createBanner", {
+    close() {
+      this.showModal = false;
+      this.$emit("close");
+      console.log("closed");
+    },
+
+    saveDataForm() {
+      let event;
+      this.showModal = false;
+      if (this.banner) {
+        event = updateBanner;
+        return;
+      }
+      event = addBanner;
+      this.$emit(`:`, {
+        banner_id: this.banner.banner_id,
         title: this.bannerTitle,
         content: this.bannerContent,
         bannerColor: this.bannerColor,
@@ -79,6 +127,8 @@ export default {
     openResourcePicker() {
       bannerPicker.dispatch(ResourcePicker.Action.OPEN);
       bannerPicker.subscribe(ResourcePicker.Action.SELECT, (selectPayload) => {
+        console.log(selectPayload);
+        this.productTitle = selectPayload.selection[0].title;
         this.productId = selectPayload.selection[0].id;
         this.productId = this.productId.replace("gid://shopify/Product/", "");
       });
@@ -88,9 +138,45 @@ export default {
 </script>
 
 <style>
-.form {
+.modal-background {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  border-radius: 2px;
+  width: 50%;
+  padding: 20px;
+  padding-bottom: 20px;
+  margin: 30px auto;
+  transition: all 0.3s ease;
+  background-color: rgb(196, 196, 196);
+}
+
+.modal__title {
+  text-align: center;
+}
+
+.modal__form {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form__btn {
+  margin: 20px 0;
+}
+
+.form__btn--closing {
+  width: 30%;
+  margin: 0 auto;
 }
 </style>
