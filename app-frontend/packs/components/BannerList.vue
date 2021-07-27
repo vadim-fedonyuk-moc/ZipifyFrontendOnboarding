@@ -9,13 +9,13 @@
         <div class="banner__style">color: {{ banner.style.key }}</div>
         <h3 class="banner__title">{{ banner.title }}</h3>
         <p class="banner__content">{{ banner.content }}</p>
-        <banner-modal-form
+        <edit-banner-form
           :key="banner.title"
           v-if="isOpenModal"
           :banner="selectedBanner"
-          @submit="onModalSubmit"
-          @close="onModalClose"
-        ></banner-modal-form>
+          @submit="closeModal"
+          @close="closeModal"
+        ></edit-banner-form>
         <div class="banner__btn btn">
           <button @click="onClickEditButton(banner)" class="btn--grey">
             Edit
@@ -30,25 +30,19 @@
 </template>
 
 <script>
-import BannerModalForm from "../shared/BannerModalForm.vue";
+import EditBannerForm from "./EditBannerForm.vue";
 
 export default {
   props: ["bannersData"],
   components: {
-    BannerModalForm,
+    EditBannerForm,
   },
   data() {
     return {
       selectedBanner: {},
-      banners: [],
       bannerId: 0,
       isOpenModal: false,
     };
-  },
-  computed: {
-    // completed() {
-    //   this.banners = this.$store.getters.getBannersData.data;
-    // },
   },
   methods: {
     onClickEditButton(banner) {
@@ -59,24 +53,12 @@ export default {
       this.selectedBanner = banner;
       this.bannerId = banner.id;
     },
-    onModalSubmit(data) {
-      this.isOpenModal = false;
-      this.updateBanner(data);
-    },
-    onModalClose() {
+
+    closeModal() {
       this.isOpenModal = false;
     },
     async deleteBanner(bannerId) {
       await this.$store.dispatch("deleteBanner", { bannerId: bannerId });
-    },
-    updateBanner(data) {
-      this.$store.dispatch("updateBanner", {
-        bannerId: this.bannerId,
-        title: data.title,
-        content: data.content,
-        bannerColor: data.bannerColor,
-        productId: data.productId,
-      });
     },
   },
 };
