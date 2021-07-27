@@ -1,10 +1,10 @@
 <template>
   <div>
-    <transition name="modal">
+    <transition name="modal" v-if="showModal">
       <div class="modal-background">
         <div class="modal">
-          <h2 class="modal__title">Add your banner</h2>
-          <form @submit.prevent="createBanner" class="modal__form form">
+          <h2 class="modal__title">Edit your banner</h2>
+          <form class="modal__form form">
             <label for="bannerTitle">Title:</label>
             <input
               id="bannerTitle"
@@ -21,8 +21,8 @@
             />
             <label for="productId">Product Id:</label>
             <button @click="openResourcePicker()">select product</button>
-            <div v-if="productTitle != ''">
-              <p># {{ productTitle }}</p>
+            <div v-if="productId">
+              <p># {{ productId }}</p>
             </div>
             <label for="bannerColor">Banner color:</label>
             <input
@@ -46,7 +46,6 @@
         </div>
       </div>
     </transition>
-    <div></div>
   </div>
 </template>
 
@@ -84,8 +83,6 @@ export default {
       bannerContent: "",
       bannerColor: "",
       productId: 0,
-      productTitle: "",
-      // ewew
       showModal: false,
     };
   },
@@ -93,31 +90,18 @@ export default {
     this.showModal = true;
   },
   mounted() {
-    if (this.banner) {
-      console.log("+");
-      this.bannerTitle = this.banner.title;
-      this.bannerContent = this.banner.content;
-      this.bannerColor = this.banner.style.key;
-      this.productTitle = this.banner.product_id;
-    }
+    this.bannerTitle = this.banner.title;
+    this.bannerContent = this.banner.content;
+    this.bannerColor = this.banner.style.key;
+    this.productId = this.banner.product_id;
   },
   methods: {
     close() {
-      this.showModal = false;
       this.$emit("close");
-      console.log("closed");
     },
-
     saveDataForm() {
-      let event;
-      this.showModal = false;
-      if (this.banner) {
-        event = updateBanner;
-        return;
-      }
-      event = addBanner;
-      this.$emit(`:`, {
-        banner_id: this.banner.banner_id,
+      this.$emit("submit", {
+        banner_id: this.banner.id,
         title: this.bannerTitle,
         content: this.bannerContent,
         bannerColor: this.bannerColor,
@@ -128,7 +112,6 @@ export default {
       bannerPicker.dispatch(ResourcePicker.Action.OPEN);
       bannerPicker.subscribe(ResourcePicker.Action.SELECT, (selectPayload) => {
         console.log(selectPayload);
-        this.productTitle = selectPayload.selection[0].title;
         this.productId = selectPayload.selection[0].id;
         this.productId = this.productId.replace("gid://shopify/Product/", "");
       });

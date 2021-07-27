@@ -10,12 +10,16 @@
         <h3 class="banner__title">{{ banner.title }}</h3>
         <p class="banner__content">{{ banner.content }}</p>
         <banner-modal-form
+          :key="banner.title"
           v-if="isOpenModal"
-          :banner="banner"
-          @updateBanner="onModalClose"
+          :banner="selectedBanner"
+          @submit="onModalSubmit"
+          @close="onModalClose"
         ></banner-modal-form>
         <div class="banner__btn btn">
-          <button @click="openModal" class="btn--grey">Edit</button>
+          <button @click="onClickEditButton(banner)" class="btn--grey">
+            Edit
+          </button>
           <button @click="deleteBanner(banner.id)" class="btn--without-bg">
             Delete
           </button>
@@ -35,42 +39,43 @@ export default {
   },
   data() {
     return {
+      selectedBanner: {},
       banners: [],
       bannerId: 0,
       isOpenModal: false,
-      // bannerTitle: "title",
-      // bannerContent: "",
-      // bannerColor: "",
-      // productId: 0,
-      // productTitle: "",
-      // showModal: false,
     };
   },
   computed: {
-    completed() {
-      this.banners = this.$store.getters.getBannersData.data;
-    },
+    // completed() {
+    //   this.banners = this.$store.getters.getBannersData.data;
+    // },
   },
   methods: {
-    openModal() {
+    onClickEditButton(banner) {
+      if (!banner) {
+        return;
+      }
       this.isOpenModal = true;
+      this.selectedBanner = banner;
+      this.bannerId = banner.id;
     },
-    onModalClose(data) {
+    onModalSubmit(data) {
       this.isOpenModal = false;
-      console.log(data);
       this.updateBanner(data);
+    },
+    onModalClose() {
+      this.isOpenModal = false;
     },
     async deleteBanner(bannerId) {
       await this.$store.dispatch("deleteBanner", { bannerId: bannerId });
     },
     updateBanner(data) {
-      console.log(data);
       this.$store.dispatch("updateBanner", {
-        bannerId: data.banner_Id,
+        bannerId: this.bannerId,
         title: data.title,
         content: data.content,
         bannerColor: data.bannerColor,
-        productId: data.product_id,
+        productId: data.productId,
       });
     },
   },
