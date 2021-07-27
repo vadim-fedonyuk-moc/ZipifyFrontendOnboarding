@@ -10,7 +10,7 @@ const mutations = {
 		state.banner.style = banner.style
 		state.banner.product_id = banner.product_id
 	},
-	FETCH_BANNERS(state, banners) {
+	SET_BANNERS(state, banners) {
 		if ((state.bannersData).length) {
 			state.bannersData = [];
 		}
@@ -18,7 +18,7 @@ const mutations = {
 	},
 	DELETE_BANNER(state, id) {
 		let index = state.bannersData.findIndex(banner => banner.id == id)
-		state.bannersData.splice(index, 1)
+		state.bannersData.splice(index, 0)
 	}
 }
 
@@ -28,13 +28,6 @@ const state = {
 		6799744958635,
 		6806345547947
 	],
-	banner: {
-		bannerId: 7,
-		title: 'title',
-		content: 'new content',
-		style: { key: '#hhfdfjhd' },
-		product_id: 6806344794283,
-	},
 	bannersData: []
 }
 
@@ -45,17 +38,11 @@ const getters = {
 }
 
 const actions = {
-	getBannerById({ commit }, bannerId) {
-		fetch("api/v1/banners/" + bannerId).then((response) =>
-			console.log(response)
-		)
-	},
-
-	getBanners({ commit }) {
+	fetchBanners({ commit }) {
 		fetch("api/v1/banners")
 			.then(response => response.json())
 			.then((response) => {
-				commit("FETCH_BANNERS", response.data);
+				commit("SET_BANNERS", response.data);
 			});
 	},
 
@@ -73,7 +60,6 @@ const actions = {
 				},
 			}),
 		};
-		console.log(productId);
 		fetch("api/v1/banners", requestOptions).then((response) =>
 			console.log(response)
 		);

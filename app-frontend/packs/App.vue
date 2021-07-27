@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     async getBanners() {
-      await this.$store.dispatch("getBanners");
+      await this.$store.dispatch("fetchBanners");
       this.bannersData = this.$store.getters.getBannersData;
     },
     closeModal() {
