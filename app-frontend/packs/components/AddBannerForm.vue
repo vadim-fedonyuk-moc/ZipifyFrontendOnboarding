@@ -27,13 +27,13 @@
               <p># {{ productId }}</p>
             </div>
             <label for="bannerColor">Banner color:</label>
-            <input
-              id="bannerColor"
+            <button type="button" @click="showColorPicker = true">
+              Choose color
+            </button>
+            <chrome-picker
               v-model="bannerColor"
-              type="text"
-              name="bannerColor"
-              placeholder="#..."
-            />
+              v-if="showColorPicker"
+            ></chrome-picker>
             <button type="submit" class="form__btn">Save</button>
           </form>
           <button
@@ -52,6 +52,7 @@
 <script>
 import createApp from "@shopify/app-bridge";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
+import { Chrome } from "vue-color";
 
 const apiKey = process.env.SHOPIFY_API_KEY;
 const decodedHost = "storozheko1.myshopify.com";
@@ -66,6 +67,9 @@ const bannerPicker = ResourcePicker.create(app, {
 });
 
 export default {
+  components: {
+    "chrome-picker": Chrome,
+  },
   data() {
     return {
       bannerTitle: "",
@@ -73,6 +77,8 @@ export default {
       bannerColor: "",
       productId: 0,
       showModal: false,
+      showColorPicker: false,
+      colors: "",
     };
   },
   created() {
@@ -87,7 +93,7 @@ export default {
       this.$store.dispatch("createBanner", {
         title: this.bannerTitle,
         content: this.bannerContent,
-        bannerColor: this.bannerColor,
+        bannerColor: this.bannerColor.hex,
         productId: this.productId,
       });
     },

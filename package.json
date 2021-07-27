@@ -10,6 +10,7 @@
     "i": "^0.3.6",
     "vue": "^2.6.14",
     "vue-axios": "^3.2.4",
+    "vue-color": "^2.8.1",
     "vuex": "^3.1.1"
   },
   "devDependencies": {
