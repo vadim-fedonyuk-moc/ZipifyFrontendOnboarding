@@ -2,7 +2,7 @@
   <div>
     <ul v-if="bannersData" class="banners">
       <li
-        v-for="banner in bannersData[0]"
+        v-for="banner in bannersData"
         :key="banner.title"
         class="banners__banner banner"
       >
@@ -16,11 +16,17 @@
           @submit="closeModal"
           @close="closeModal"
         ></edit-banner-form>
-        <div class="banner__btn btn">
-          <button @click="onClickEditButton(banner)" class="btn--grey">
+        <div class="banner__actions actions">
+          <button
+            @click="onClickEditButton(banner)"
+            class="actions__btn btn btn--grey"
+          >
             Edit
           </button>
-          <button @click="deleteBanner(banner.id)" class="btn--without-bg">
+          <button
+            @click="deleteBanner(banner.id)"
+            class="actions__btn btn btn--without-bg"
+          >
             Delete
           </button>
         </div>
@@ -33,7 +39,9 @@
 import EditBannerForm from "./EditBannerForm.vue";
 
 export default {
-  props: ["bannersData"],
+  props: {
+    bannersData: [],
+  },
   components: {
     EditBannerForm,
   },
@@ -42,6 +50,7 @@ export default {
       selectedBanner: {},
       bannerId: 0,
       isOpenModal: false,
+      bannersListData: this.bannersData,
     };
   },
   methods: {
@@ -57,12 +66,45 @@ export default {
     closeModal() {
       this.isOpenModal = false;
     },
-    async deleteBanner(bannerId) {
-      await this.$store.dispatch("deleteBanner", { bannerId: bannerId });
+    deleteBanner(bannerId) {
+      this.$store.dispatch("deleteBanner", { bannerId: bannerId });
     },
   },
 };
 </script>
 
 <style>
+.banners {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style: none;
+  color: #000000;
+}
+
+.banners__banner {
+  padding: 1em;
+  text-align: center;
+  background-color: #d6d6d6;
+  border-radius: 5%;
+}
+
+.btn {
+  margin: 5px auto;
+  width: 70%;
+  height: 2em;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn--without-bg {
+  background-color: inherit;
+}
+
+.btn:hover,
+.btn--closing:hover {
+  cursor: pointer;
+}
 </style>

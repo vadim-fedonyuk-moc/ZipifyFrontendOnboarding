@@ -1,8 +1,10 @@
 <template>
   <div>
+    <div class="header">
+      <button @click="showModal = true" class="add-btn">Create banner</button>
+    </div>
     <add-banner-form v-if="showModal" @submit="closeModal" @close="closeModal">
     </add-banner-form>
-    <button @click="showModal = true">Create banner</button>
     <banner-list :bannersData="bannersData"></banner-list>
   </div>
 </template>
@@ -23,7 +25,7 @@ export default {
       showModal: false,
     };
   },
-  mounted() {
+  created() {
     this.getBanners();
   },
   methods: {
@@ -38,45 +40,24 @@ export default {
 };
 </script>
 <style>
-.modal-background {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
+.header {
+  margin-bottom: 2em;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal {
-  border-radius: 2px;
-  width: 50%;
-  padding: 20px;
-  padding-bottom: 20px;
-  margin: 30px auto;
-  transition: all 0.3s ease;
+  height: 3em;
   background-color: rgb(196, 196, 196);
-}
-
-.modal__title {
-  text-align: center;
-}
-
-.modal__form {
   display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 0 auto;
+  justify-content: flex-end;
 }
 
-.form__btn {
-  margin: 20px 0;
+.add-btn {
+  width: 10%;
+  margin: auto 3px;
+  height: 2em;
+  border: none;
+  border-radius: 5px;
 }
 
-.form__btn--closing {
-  width: 30%;
-  margin: 0 auto;
+.add-btn:hover {
+  cursor: pointer;
 }
 </style>

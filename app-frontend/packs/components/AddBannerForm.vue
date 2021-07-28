@@ -3,46 +3,65 @@
     <transition name="modal" v-if="showModal">
       <div class="modal-background">
         <div class="modal">
+          <div class="modal__btn-close btn-close">
+            <button type="button" @click="close" class="btn-close btn--closing">
+              Close
+            </button>
+          </div>
           <h2 class="modal__title">Add your banner</h2>
+
           <form @submit="createBanner" class="modal__form form">
-            <label for="bannerTitle">Title:</label>
-            <input
-              id="bannerTitle"
-              v-model="bannerTitle"
-              type="text"
-              name="bannerTitle"
-            />
-            <label for="bannerContent">Content:</label>
-            <input
-              id="bannerContent"
-              v-model="bannerContent"
-              type="text"
-              name="bannerContent"
-            />
-            <label for="productId">Product Id:</label>
-            <button type="button" @click="openResourcePicker">
-              select product
-            </button>
-            <div v-if="productId">
-              <p># {{ productId }}</p>
+            <div class="form__field field">
+              <label for="bannerTitle">Title:</label>
+              <input
+                id="bannerTitle"
+                v-model="bannerTitle"
+                type="text"
+                name="bannerTitle"
+                class="field__input"
+              />
             </div>
-            <label for="bannerColor">Banner color:</label>
-            <button type="button" @click="showColorPicker = true">
-              Choose color
-            </button>
+            <div class="form__field field">
+              <label for="bannerContent">Content:</label>
+              <input
+                id="bannerContent"
+                v-model="bannerContent"
+                type="text"
+                name="bannerContent"
+                class="field__input"
+              />
+            </div>
+            <div class="form__field field">
+              <p>Product Id:</p>
+              <button
+                type="button"
+                @click="openResourcePicker"
+                class="field__btn btn"
+              >
+                select product
+              </button>
+            </div>
+            <div class="form__field">
+              <p v-if="productId"># {{ productId }}</p>
+            </div>
+
+            <div class="form__field">
+              <p>Banner color:</p>
+              <button
+                type="button"
+                @click="showColorPicker = true"
+                class="field__btn btn"
+              >
+                Choose color
+              </button>
+            </div>
             <chrome-picker
               v-model="bannerColor"
               v-if="showColorPicker"
+              class="form__color-picker"
             ></chrome-picker>
-            <button type="submit" class="form__btn">Save</button>
+            <button type="submit" class="form__btn btn">Save</button>
           </form>
-          <button
-            type="button"
-            @click="close"
-            class="form__btn form__btn--closing"
-          >
-            Close
-          </button>
         </div>
       </div>
     </transition>
@@ -109,4 +128,81 @@ export default {
 </script>
 
 <style>
+.modal-background {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  border-radius: 2px;
+  width: 50%;
+  padding: 20px;
+  /* padding-bottom: 20px; */
+  margin: 30px auto;
+  /* transition: all 0.3s ease; */
+  /* background-color: rgb(196, 196, 196); */
+}
+
+.modal__title {
+  text-align: center;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.form__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 10px auto;
+}
+
+.field__input {
+  border: none;
+  width: 70%;
+  height: 1.5em;
+  border-radius: 5px;
+}
+
+.btn-close {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.btn--closing {
+  width: 30%;
+  border: none;
+  background-color: inherit;
+}
+
+.btn {
+  margin: 0 auto;
+  width: 50%;
+  height: 2em;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn:hover,
+.btn--closing:hover {
+  cursor: pointer;
+}
+
+.form__color-picker {
+  width: 100%;
+  margin: 0 auto;
+}
 </style>

@@ -14,11 +14,15 @@ const mutations = {
 		if ((state.bannersData).length) {
 			state.bannersData = [];
 		}
-		state.bannersData.push(banners);
+		banners.forEach(item => {
+			state.bannersData.push(item);
+		});
+		state.bannersData = banners;
 	},
 	DELETE_BANNER(state, id) {
-		let index = state.bannersData.findIndex(banner => banner.id == id)
-		state.bannersData.splice(index, 0)
+		let index = state.bannersData.findIndex(banner => banner.id == id);
+		state.bannersData = state.bannersData.splice(index);
+		console.log(state.bannersData);
 	}
 }
 
@@ -28,7 +32,15 @@ const state = {
 		6799744958635,
 		6806345547947
 	],
-	bannersData: []
+	bannersData: [],
+	banners: [
+		{
+			title: 'Title',
+			content: 'This is title',
+			color: { key: '#jdkdsdd' },
+			product_id: 303003003,
+		}
+	]
 }
 
 const getters = {
