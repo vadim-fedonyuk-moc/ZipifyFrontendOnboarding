@@ -21,16 +21,19 @@
                 class="field__input"
               />
             </div>
+
             <div class="form__field field">
-              <label for="bannerContent">Content:</label>
-              <input
-                id="bannerContent"
-                v-model="bannerContent"
-                type="text"
-                name="bannerContent"
-                class="field__input"
-              />
+              <p>Content:</p>
+              <button
+                type="button"
+                @click="isOpenTEditor = true"
+                class="field__btn btn"
+              >
+                Add content
+              </button>
+              <p v-if="bannerContent">{{ bannerContent }}</p>
             </div>
+
             <div class="form__field field">
               <p>Product Id:</p>
               <button
@@ -65,16 +68,27 @@
         </div>
       </div>
     </transition>
+    <div v-if="isOpenTEditor" class="field__editor">
+      <p>editor</p>
+      <ToastUiEditor
+        v-if="isOpenTEditor"
+        @close="onCloseEditor"
+        v-model="bannerContent"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import createApp from "@shopify/app-bridge";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
+import ToastUiEditor from "./ToastUiEditor.vue";
+
 import { Chrome } from "vue-color";
 
 const apiKey = process.env.SHOPIFY_API_KEY;
 const decodedHost = "storozheko1.myshopify.com";
+
 const app = createApp({
   apiKey,
   host: btoa(decodedHost),
@@ -88,6 +102,7 @@ const bannerPicker = ResourcePicker.create(app, {
 export default {
   components: {
     "chrome-picker": Chrome,
+    ToastUiEditor,
   },
   data() {
     return {
@@ -97,6 +112,7 @@ export default {
       productId: 0,
       showModal: false,
       showColorPicker: false,
+      isOpenTEditor: false,
       colors: "",
     };
   },
@@ -123,6 +139,10 @@ export default {
         this.productId = this.productId.replace("gid://shopify/Product/", "");
       });
     },
+    onCloseEditor(data) {
+      this.isOpenTEditor = false;
+      this.bannerContent = data;
+    },
   },
 };
 </script>
@@ -142,12 +162,9 @@ export default {
 
 .modal {
   border-radius: 2px;
-  width: 50%;
+  width: 70%;
   padding: 20px;
-  /* padding-bottom: 20px; */
   margin: 30px auto;
-  /* transition: all 0.3s ease; */
-  /* background-color: rgb(196, 196, 196); */
 }
 
 .modal__title {
@@ -157,7 +174,7 @@ export default {
 .modal__form {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
 }
 

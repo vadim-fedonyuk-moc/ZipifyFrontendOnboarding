@@ -21,15 +21,17 @@
               />
             </div>
 
-            <div class="form__field field">
-              <label for="bannerContent">Content:</label>
-              <input
-                id="bannerContent"
-                v-model="bannerContent"
-                type="text"
-                name="bannerContent"
-                class="field__input"
-              />
+           <div class="form__field field">
+              <p>Content:</p>
+              <button
+                type="button"
+                @click="isOpenTEditor = true"
+                class="field__btn btn"
+              >
+                Add content
+              </button>
+              <p v-if="bannerContent">{{ bannerContent }}</p>
+
             </div>
 
             <div class="form__field field">
@@ -66,6 +68,14 @@
         </div>
       </div>
     </transition>
+    <div v-if="isOpenTEditor" class="field__editor">
+      <p>editor</p>
+      <ToastUiEditor
+        v-if="isOpenTEditor"
+        @close="onCloseEditor"
+        v-model="bannerContent"
+      />
+    </div>
   </div>
 </template>
 
@@ -73,6 +83,7 @@
 import createApp from "@shopify/app-bridge";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
 import { Chrome } from "vue-color";
+import ToastUiEditor from "./ToastUiEditor.vue";
 
 const apiKey = process.env.SHOPIFY_API_KEY;
 const decodedHost = "storozheko1.myshopify.com";
@@ -101,10 +112,10 @@ export default {
   },
   components: {
     "chrome-picker": Chrome,
+    ToastUiEditor,
   },
   data() {
     return {
-      // banner: this.banner,
       bannerId: 0,
       bannerTitle: "",
       bannerContent: "",
@@ -112,6 +123,7 @@ export default {
       productId: 0,
       showModal: false,
       showColorPicker: false,
+      isOpenTEditor: false,
       colors: "",
     };
   },
@@ -145,6 +157,10 @@ export default {
         bannerColor: this.bannerColor.hex,
         productId: this.productId,
       });
+    },
+     onCloseEditor(data) {
+      this.isOpenTEditor = false;
+      this.bannerContent = data;
     },
   },
 };
