@@ -4,7 +4,7 @@
       <div class="modal-background">
         <div class="modal">
           <div class="modal__btn-close btn-close">
-            <button type="button" @click="close" class="btn-close btn--closing">
+            <button type="button" @click="close" class="btn-close btn--without-bg">
               Close
             </button>
           </div>
@@ -21,7 +21,7 @@
               />
             </div>
 
-           <div class="form__field field">
+            <div class="form__field field">
               <p>Content:</p>
               <button
                 type="button"
@@ -30,8 +30,6 @@
               >
                 Add content
               </button>
-              <p v-if="bannerContent">{{ bannerContent }}</p>
-
             </div>
 
             <div class="form__field field">
@@ -43,9 +41,6 @@
               >
                 select product
               </button>
-            </div>
-            <div class="form__field">
-              <p v-if="productId"># {{ productId }}</p>
             </div>
 
             <div class="form__field field">
@@ -63,7 +58,7 @@
               v-if="showColorPicker"
               class="form__color-picker"
             ></chrome-picker>
-            <button type="submit" class="form__btn btn">Save</button>
+            <button type="submit" class="form__btn btn btn--center">Save</button>
           </form>
         </div>
       </div>
@@ -74,6 +69,7 @@
         v-if="isOpenTEditor"
         @close="onCloseEditor"
         v-model="bannerContent"
+        :bannerContent="this.bannerContent"
       />
     </div>
   </div>
@@ -81,6 +77,7 @@
 
 <script>
 import createApp from "@shopify/app-bridge";
+import "../../styles/application.css";
 import { ResourcePicker } from "@shopify/app-bridge/actions";
 import { Chrome } from "vue-color";
 import ToastUiEditor from "./ToastUiEditor.vue";
@@ -105,7 +102,7 @@ export default {
       title: String,
       content: String,
       style: {
-        key: String,
+        color: String,
       },
       product_id: Number,
     },
@@ -124,7 +121,6 @@ export default {
       showModal: false,
       showColorPicker: false,
       isOpenTEditor: false,
-      colors: "",
     };
   },
   created() {
@@ -133,7 +129,7 @@ export default {
   mounted() {
     this.bannerTitle = this.banner.title;
     this.bannerContent = this.banner.content;
-    this.bannerColor = this.banner.style.key;
+    this.bannerColor = this.banner.style.color;
     this.productId = this.banner.product_id;
     this.bannerId = this.banner.id;
   },
@@ -151,14 +147,14 @@ export default {
     updateBanner() {
       this.$emit("submit");
       this.$store.dispatch("updateBanner", {
-        bannerId: this.bannerId,
+        id: this.bannerId,
         title: this.bannerTitle,
         content: this.bannerContent,
         bannerColor: this.bannerColor.hex,
         productId: this.productId,
       });
     },
-     onCloseEditor(data) {
+    onCloseEditor(data) {
       this.isOpenTEditor = false;
       this.bannerContent = data;
     },
@@ -166,82 +162,5 @@ export default {
 };
 </script>
 
-<style>
-.modal-background {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal {
-  border-radius: 2px;
-  width: 50%;
-  padding: 20px;
-  padding-bottom: 20px;
-  margin: 30px auto;
-  transition: all 0.3s ease;
-  background-color: rgb(196, 196, 196);
-}
-
-.modal__title {
-  text-align: center;
-}
-
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.form__field {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 60%;
-  margin: 10px auto;
-}
-
-.field__input {
-  border: none;
-  width: 70%;
-  height: 1.5em;
-  border-radius: 5px;
-}
-
-.btn-close {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
-}
-
-.btn--closing {
-  width: 30%;
-  border: none;
-  background-color: inherit;
-}
-
-.btn {
-  margin: 0 auto;
-  width: 50%;
-  height: 2em;
-  border: none;
-  border-radius: 5px;
-}
-
-.btn:hover,
-.btn--closing:hover {
-  cursor: pointer;
-}
-
-.form__color-picker {
-  width: 100%;
-  margin: 0 auto;
-}
+<style scoped>
 </style>

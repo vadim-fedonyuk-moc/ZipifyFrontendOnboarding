@@ -10,7 +10,7 @@
         previewStyle="vertical"
         :value="editorData"
       />
-      <button @click="onClickButton" class="modal__btn">Save</button>
+      <button @click="onClickButton" class="modal__btn btn btn--center">Save</button>
     </div>
   </div>
 </template>
@@ -18,16 +18,18 @@
 <script>
 import "codemirror/lib/codemirror.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import '../../styles/application.css';
 import { Editor } from "@toast-ui/vue-editor";
 
 export default {
   name: "ToastUiEditor",
+  props: ['bannerContent'],
   components: {
     editor: Editor,
   },
   data() {
     return {
-      editorText: "Input content here....",
+      editorText: this.bannerContext,
       editorOptions: {
         hideModeSwitch: true,
       },
@@ -44,30 +46,4 @@ export default {
 </script>
 
 <style>
-.modal-background {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal {
-  border-radius: 2px;
-  width: 50%;
-  padding: 20px;
-  margin: 30px auto;
-}
-
-.modal__btn {
-  margin: 2pd auto;
-  width: 50%;
-  height: 2em;
-  border: none;
-  border-radius: 5px;
-}
 </style>

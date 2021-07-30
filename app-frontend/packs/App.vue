@@ -5,20 +5,20 @@
     </div>
     <add-banner-form v-if="showModal" @submit="closeModal" @close="closeModal">
     </add-banner-form>
-    <banner-list :bannersData="bannersData"></banner-list>
+    <banner-list :bannersData="updatedBannersData"></banner-list>
   </div>
 </template>
 
 <script>
 import AddBannerForm from "./components/AddBannerForm.vue";
 import BannerList from "./components/BannerList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     BannerList,
     AddBannerForm,
   },
-
   data() {
     return {
       bannersData: [],
@@ -27,6 +27,9 @@ export default {
   },
   created() {
     this.getBanners();
+  },
+  computed: {
+    ...mapGetters({ updatedBannersData: "getBannersData" }),
   },
   methods: {
     async getBanners() {
@@ -39,7 +42,8 @@ export default {
   },
 };
 </script>
-<style>
+
+<style scoped>
 .header {
   margin-bottom: 2em;
   width: 100%;

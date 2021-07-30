@@ -3,10 +3,10 @@
     <ul v-if="bannersData" class="banners">
       <li
         v-for="banner in bannersData"
-        :key="banner.title"
+        :key="banner.id"
         class="banners__banner banner"
       >
-        <div class="banner__style">color: {{ banner.style.key }}</div>
+        <div :style="banner.style" class="banner__style">{{ banner.style.color }}</div>
         <h3 class="banner__title">{{ banner.title }}</h3>
         <p class="banner__content">{{ banner.content }}</p>
         <edit-banner-form
@@ -37,11 +37,10 @@
 
 <script>
 import EditBannerForm from "./EditBannerForm.vue";
+import '../../styles/application.css';
 
 export default {
-  props: {
-    bannersData: [],
-  },
+  props: ["bannersData"],
   components: {
     EditBannerForm,
   },
@@ -85,26 +84,11 @@ export default {
 }
 
 .banners__banner {
+  margin: 1em;
   padding: 1em;
+  width: 20%;
   text-align: center;
   background-color: #d6d6d6;
   border-radius: 5%;
-}
-
-.btn {
-  margin: 5px auto;
-  width: 70%;
-  height: 2em;
-  border: none;
-  border-radius: 5px;
-}
-
-.btn--without-bg {
-  background-color: inherit;
-}
-
-.btn:hover,
-.btn--closing:hover {
-  cursor: pointer;
 }
 </style>
