@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -43,13 +42,7 @@ module.exports = {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        },
-        https: {
-            key: fs.readFileSync('config/webpack/ssl/server.key', 'utf8'),
-            cert: fs.readFileSync('config/webpack/ssl/server.crt', 'utf8'),
-            ca: fs.readFileSync('config/webpack/ssl/ca.pem', 'utf8'),
-            passphrase: 'test'
-        },
+        }
     },
     module: {
         rules: [
@@ -71,7 +64,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: { cacheDirectory: true }
+                    options: {cacheDirectory: true}
                 }
             },
             {
@@ -80,7 +73,7 @@ module.exports = {
                     MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
-                        options: { sourceMap: true }
+                        options: {sourceMap: true}
                     },
                     {
                         loader: 'postcss-loader'
@@ -118,7 +111,7 @@ module.exports = {
             writeToFileEmit: true
         }),
         new DefinePlugin({
-            'process.env': JSON.stringify({ ...process.env })
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         })
     ]
 };
