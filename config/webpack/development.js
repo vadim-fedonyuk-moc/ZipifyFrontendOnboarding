@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -6,7 +7,6 @@ const { pathFromRoot } = require('./utils');
 const { manifest, output } = require('./settings');
 
 const publicPath = 'https://localhost:8080/';
-const fs = require('fs');
 
 module.exports = {
     mode: 'development',
