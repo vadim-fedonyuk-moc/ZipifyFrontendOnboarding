@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: frontend.Dockerfile
-    command: yarn start
+    command: npm run start
     ports:
       - 8080:8080
     volumes:
@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: api.Dockerfile
-    command: bundle exec rails server --binding 0.0.0.0 --port 7000
+    command: bundle exec rails server --binding 0.0.0.0 --port 7777
     tty: true
     stdin_open: true
     networks:
@@ -34,7 +34,7 @@ services:
       - .:/app
       - pages-bundle:/bundle
     ports:
-      - 7000:7000
+      - 7777:7777
     depends_on:
       - db
     env_file: .env

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
@@ -15,41 +15,42 @@ module.exports = {
     },
     output: {
         pathinfo: true,
-        filename: '[name].js',
         path: output,
         publicPath,
         hotUpdateChunkFilename: 'hot/[id].[fullhash].hot-update.js',
-        hotUpdateMainFilename: 'hot/[fullhash].hot-update.json'
+        hotUpdateMainFilename: 'hot/[fullhash].hot-update.json',
+        assetModuleFilename: '[name][ext][query]'
     },
     devServer: {
         host: process.env.WEBPACK_HOST || 'localhost',
         port: 8080,
-        compress: true,
-        inline: true,
         hot: true,
-        overlay: {
-            warnings: true,
-            errors: true
+        devMiddleware: {
+            stats: { colors: true }
         },
-        clientLogLevel: 'none',
-        disableHostCheck: true,
+        client: {
+            logging: 'none',
+            overlay: {
+                warnings: true,
+                errors: true
+            },
+            webSocketURL: 'wss://localhost:8080/ws'
+        },
+        server: {
+            type: 'https',
+            options: {
+                key: fs.readFileSync('config/webpack/ssl/server.key', 'utf8'),
+                cert: fs.readFileSync('config/webpack/ssl/server.crt', 'utf8'),
+                ca: fs.readFileSync('config/webpack/ssl/ca.pem', 'utf8'),
+                passphrase: 'test'
+            }
+        },
+        allowedHosts: 'all',
         historyApiFallback: true,
-        stats: {
-            colors: true,
-            children: false
-        },
-        public: publicPath,
-        contentBase: pathFromRoot(['public/assets']),
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-        },
-        https: {
-            key: fs.readFileSync('config/webpack/ssl/server.key', 'utf8'),
-            cert: fs.readFileSync('config/webpack/ssl/server.crt', 'utf8'),
-            ca: fs.readFileSync('config/webpack/ssl/ca.pem', 'utf8'),
-            passphrase: 'test'
-        },
+        }
     },
     module: {
         rules: [
@@ -111,14 +112,15 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin(),
         new VueLoaderPlugin(),
-        new HotModuleReplacementPlugin(),
         new WebpackManifestPlugin({
             fileName: manifest,
             publicPath,
             writeToFileEmit: true
         }),
         new DefinePlugin({
-            'process.env': JSON.stringify({ ...process.env })
+            'process.env': JSON.stringify({ ...process.env }),
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false
         })
     ]
 };
