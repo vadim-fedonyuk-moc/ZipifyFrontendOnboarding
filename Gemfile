@@ -23,7 +23,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "shopify_app", "~> 14.4"
-gem 'webpacker', github: 'YuriiRudenko/webpacker_without_compile'
+gem 'minipack'
 gem 'foreman'
 gem 'pg'
 gem 'dotenv-rails'

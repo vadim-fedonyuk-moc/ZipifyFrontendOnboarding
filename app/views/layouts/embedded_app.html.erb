@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title><%= ShopifyApp.configuration.application_name %></title>
+    <title>ZipifyBanners</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= stylesheet_bundle_tag 'application' %>
   </head>
   <body>
     <%= content_tag(:div, nil, id: 'shopify-app-init', data: {
@@ -13,6 +13,6 @@
       debug: Rails.env.development?
     } ) %>
     <%= yield %>
-    <%= javascript_pack_tag 'application', defer: true %>
+    <%= javascript_bundle_tag 'application', defer: true %>
   </body>
 </html>

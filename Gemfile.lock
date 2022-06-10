@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/YuriiRudenko/webpacker_without_compile.git
-  revision: cca1ae8fc892ef3dbe03d080fbc8c66f7aa64e9d
-  specs:
-    webpacker (2.0)
-      activesupport (>= 4.2)
-      multi_json (~> 1.2)
-      railties (>= 4.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,39 +68,16 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
     annotate (2.7.5)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     bindex (0.8.1)
     bootsnap (1.4.9)
       msgpack (~> 1.0)
     browser_sniffer (1.2.2)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.33.0)
-      addressable
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
-      xpath (~> 3.2)
-    childprocess (3.0.0)
-    chromedriver-helper (2.1.1)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     coderay (1.1.3)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
     dotenv (2.7.6)
@@ -139,7 +107,6 @@ GEM
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
     erubi (1.10.0)
-    execjs (2.7.0)
     faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
@@ -168,7 +135,6 @@ GEM
     hashie (4.1.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    io-like (0.3.1)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jwt (2.2.2)
@@ -185,6 +151,9 @@ GEM
     method_source (1.0.0)
     mini_mime (1.0.3)
     mini_portile2 (2.5.3)
+    minipack (0.3.6)
+      actionview
+      railties (>= 4.2)
     minitest (5.14.4)
     msgpack (1.3.3)
     multi_json (1.15.0)
@@ -217,7 +186,6 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    public_suffix (4.0.6)
     puma (3.12.6)
     racc (1.5.2)
     rack (2.2.3)
@@ -259,24 +227,8 @@ GEM
       ffi (~> 1.0)
     redirect_safely (1.0.0)
       activemodel
-    regexp_parser (1.8.2)
     ruby2_keywords (0.0.2)
     ruby_dep (1.5.0)
-    rubyzip (2.3.0)
-    sass (3.7.4)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.1.0)
-      railties (>= 5.2.0)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     shopify_api (9.2.0)
       activeresource (>= 4.1.0, < 6.0.0)
       graphql-client
@@ -301,14 +253,11 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
     thor (1.1.0)
-    tilt (2.0.10)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -317,8 +266,6 @@ GEM
     websocket-driver (0.7.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -328,9 +275,6 @@ DEPENDENCIES
   annotate (~> 2.7, >= 2.7.1)
   bootsnap (>= 1.1.0)
   byebug
-  capybara (>= 2.15)
-  chromedriver-helper
-  coffee-rails (~> 4.2)
   dotenv-rails
   foreman
   grape
@@ -339,22 +283,19 @@ DEPENDENCIES
   grape-swagger-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  minipack
   pg
   pry
   puma (~> 3.11)
   rack-cors
   rails (= 6.1.3.1)
-  sass-rails (~> 5.0)
-  selenium-webdriver
   shopify_app (~> 14.4)
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   turbolinks (~> 5)
   tzinfo-data
-  uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
-  webpacker!
 
 RUBY VERSION
    ruby 2.6.5p114
