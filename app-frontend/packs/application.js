@@ -1,9 +1,9 @@
 import '../styles/application.css';
 import App from './App';
 import { createApp } from 'vue';
-
-// Here's your starting point for {javascript, vue} development
+import router from './router';
 
 const app = createApp(App);
 
+app.use(router);
 app.mount(document.querySelector('[data-app]'));
