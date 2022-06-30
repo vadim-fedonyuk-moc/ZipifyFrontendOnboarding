@@ -1,0 +1,58 @@
+<template>
+  <div class="ba-banners-section">
+    <div>
+      <h2 class="ba-banners-section__title">Banners</h2>
+      <div class="ba-banners-section__line "></div>
+    </div>
+    <div v-if="true" class="ba-banners-section__cards">
+      <Card/>
+    </div>
+    <div v-else class="ba-banners-section__empty">
+      <EmptySection/>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import EmptySection from "./EmptySection";
+import Card from "./Card";
+
+export default {
+  name: "BannersSection",
+  components: {Card, EmptySection}
+}
+</script>
+
+<style scoped>
+
+.ba-banners-section {
+  padding: 20px 40px;
+  height: 100%;
+  background: #F5F5F7;
+}
+
+.ba-banners-section__title {
+  display: flex;
+  justify-content: flex-start;
+
+}
+
+.ba-banners-section__line {
+  width: 100%;
+  height: 2px;
+  border-top: solid 1px #A5A5A5;
+}
+
+.ba-banners-section__empty {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.ba-banners-section__cards {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
