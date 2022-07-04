@@ -20,7 +20,9 @@
     </div>
   </div>
   <div class="ba-form-section__control-section">
-    <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
+    <router-link to="/">
+      <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
+    </router-link>
     <button class="ba-control-section__button ba-control-section__button--save" type="submit">Save</button>
   </div>
 </template>
