@@ -15,12 +15,12 @@ export default {
   margin: 0;
   width: 100%;
   height: 30px;
-  background: #7F56D9;
+  background: var(--color-violet);
 }
 
 .ba-project-banner__text {
   margin: 0;
-  color: #FFFFFF;
+  color: var(--color-white);
   display: flex;
   justify-content: center;
   padding: 8px;

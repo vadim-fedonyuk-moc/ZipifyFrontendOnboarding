@@ -48,7 +48,7 @@ export default {
 .ba-empty-description {
   text-align: center;
   line-height: initial;
-  color: #A5A5A5;
+  color: var(--color-text);
   font-size: 20px;
 }
 

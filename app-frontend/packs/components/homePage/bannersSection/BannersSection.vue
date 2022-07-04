@@ -29,10 +29,11 @@ export default {
 .ba-banners-section {
   padding: 20px 40px;
   height: 100%;
-  background: #F5F5F7;
+  background: var(--color-background);
 }
 
 .ba-banners-section__title {
+  font-weight: 600;
   display: flex;
   justify-content: flex-start;
 
@@ -41,7 +42,7 @@ export default {
 .ba-banners-section__line {
   width: 100%;
   height: 2px;
-  border-top: solid 1px #A5A5A5;
+  border-top: solid 1px var(--color-line);
 }
 
 .ba-banners-section__empty {

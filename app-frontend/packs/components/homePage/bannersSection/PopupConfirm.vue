@@ -35,7 +35,7 @@ export default {
   padding: 15px;
   height: 180px;
   width: 350px;
-  background-color: #FFF;
+  background-color: var(--color-white);
   border-radius: 5px;
 }
 
@@ -60,16 +60,16 @@ export default {
   border-radius: 5px;
   width: 100px;
   height: 30px;
-  color: #FFFFFF;
+  color: var(--color-white);
   font-size: 15px;
   font-weight: 600;
 }
 
 .ba-btn-wrap__button--cancel {
-  background-color: #B0AAAA;
+  background-color: var(--color-cancel);
 }
 
 .ba-btn-wrap__button--delete {
-  background-color: #EE1A33;
+  background-color: var(--color-delete);
 }
 </style>

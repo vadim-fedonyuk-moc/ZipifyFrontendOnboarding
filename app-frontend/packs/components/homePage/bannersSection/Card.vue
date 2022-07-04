@@ -52,7 +52,7 @@ export default {
   width: 30%;
   border: solid 1px rgba(151, 151, 151, 0.35);
   border-radius: 5px;
-  background: #FFFFFF;
+  background: var(--color-white);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -64,7 +64,7 @@ export default {
 .ba-card__line {
   width: 100%;
   height: 2px;
-  border-top: solid 1px #A5A5A5;
+  border-top: solid 1px var(--color-line);
 }
 
 
