@@ -5,10 +5,14 @@
       <p class="ba-popup-page__text-description">Do you really want to delete banner “name banner”?</p>
       <div class="ba-popup-page__btn-wrap">
         <button class="ba-btn-wrap__button ba-btn-wrap__button--cancel"
-                type="button">Cancel
+                type="button"
+                @click="$emit('closePopup')"
+        >Cancel
         </button>
         <button class="ba-btn-wrap__button ba-btn-wrap__button--delete"
-                type="button">Delete
+                type="button"
+                @click="deleteCard"
+        >Delete
         </button>
       </div>
     </div>
@@ -16,8 +20,18 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
 export default {
-  name: "PopupConfirm"
+  name: "PopupConfirm",
+  methods: {
+    deleteCard() {
+      this.deleteBanner();
+      this.$emit('closePopup')
+    },
+    ...mapActions({
+      deleteBanner: "banner/deleteBanner",
+    })
+  },
 }
 </script>
 

@@ -13,11 +13,10 @@ export const bannerModule = {
     getters: {},
     mutations: {
         setData(state, data) {
-            console.log(data)
             state.bannersData = data;
         },
         setIdBanner(state, id) {
-            this.state.idBanner = id;
+            state.idBanner = id;
         },
         setInputText(state, value) {
             state.inputText = value;
@@ -30,8 +29,8 @@ export const bannerModule = {
         },
     },
     actions: {
-        async fetchBanners({commit}) {
-            await axios.get('/api/v1/banners')
+        fetchBanners({commit}) {
+             axios.get('/api/v1/banners')
                 .then((res) => {
                     commit('setData', res.data.data)
                 })
@@ -48,6 +47,12 @@ export const bannerModule = {
                 }
             })
                 .then( (res) => {
+                })
+        },
+        deleteBanner({state, dispatch}) {
+            axios.delete('/api/v1/banners/' + state.idBanner)
+                .then((res) => {
+                    dispatch('fetchBanners');
                 })
         },
     },
