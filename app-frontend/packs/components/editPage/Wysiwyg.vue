@@ -1,5 +1,10 @@
 <template>
-  <div id="editor-container" class="ba-editor-container">
+  <div @click="updateInputWysiwyg">
+    <div id="editor-container"
+         class="ba-editor-container"
+         @keydown="updateInputWysiwyg"
+    >
+  </div>
   </div>
 </template>
 <script>
@@ -28,6 +33,9 @@ export default {
         theme: 'snow',
         placeholder: 'Some text'
       });
+    },
+    updateInputWysiwyg() {
+      this.$emit('update:modelValueWysiwyg', this.quill.root.innerHTML)
     }
   },
   mounted() {

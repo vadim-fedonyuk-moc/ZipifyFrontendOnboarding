@@ -4,8 +4,12 @@
       <h3 class="ba-popup-page__main-text">Are you sure?</h3>
       <p class="ba-popup-page__text-description">Do you really want to delete banner “name banner”?</p>
       <div class="ba-popup-page__btn-wrap">
-        <button class="ba-btn-wrap__button ba-btn-wrap__button--cancel">Cancel</button>
-        <button class="ba-btn-wrap__button ba-btn-wrap__button--delete">Delete</button>
+        <button class="ba-btn-wrap__button ba-btn-wrap__button--cancel"
+                type="button">Cancel
+        </button>
+        <button class="ba-btn-wrap__button ba-btn-wrap__button--delete"
+                type="button">Delete
+        </button>
       </div>
     </div>
   </div>

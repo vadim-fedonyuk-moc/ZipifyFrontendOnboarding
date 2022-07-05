@@ -1,38 +1,78 @@
 <template>
-  <div class="ba-form-section">
+  <form class="ba-form-section" @submit.prevent="formSubmit">
     <div>
       <h3 class="ba-form-section__title">Creation points</h3>
       <div class="ba-form-section__line "></div>
     </div>
     <div class="ba-form-block">
       <label>Name banner</label>
-      <input class="ba-form-block__name-banner" type="text" placeholder="Name banner">
+      <input class="ba-form-block__name-banner"
+             type="text" placeholder="Name banner"
+             :value="inputText"
+             @input="updateInput"
+      >
     </div>
     <input class="ba-form-section__target-product" type="button" value="Target product">
     <div>
       <label>Background color</label>
-      <input class="ba-form-section__color-banner" type="color">
+      <input class="ba-form-section__color-banner"
+             type="color"
+             :value="inputColor"
+             @input="updateInputColor"
+      >
     </div>
     <div>
       <p>Text banner*</p>
       <p class="text-banner-description">*no more than 50 symbols </p>
-      <Wysiwyg/>
+      <Wysiwyg
+          @update:model-value-wysiwyg="setInputWysiwyg"
+      />
     </div>
-  </div>
-  <div class="ba-form-section__control-section">
-    <router-link to="/">
-      <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
-    </router-link>
-    <button class="ba-control-section__button ba-control-section__button--save" type="submit">Save</button>
-  </div>
+    <div class="ba-form-section__control-section">
+      <router-link to="/">
+        <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
+      </router-link>
+      <button class="ba-control-section__button ba-control-section__button--save" type="submit">Save</button>
+    </div>
+  </form>
 </template>
 
 <script>
+import {mapMutations, mapState, mapActions} from 'vuex';
 import Wysiwyg from "./Wysiwyg";
 
 export default {
   name: "EditForm",
-  components: {Wysiwyg}
+  components: {Wysiwyg},
+  methods:{
+    ...mapMutations({
+      setInputText: 'banner/setInputText',
+      setInputColor: 'banner/setInputColor',
+      setInputWysiwyg: "banner/setInputWysiwyg"
+    }),
+    ...mapActions({
+      createBanner: 'banner/createBanner',
+    }),
+    formSubmit() {
+      this.createBanner();
+    },
+    updateInput(value) {
+      this.$store.commit('banner/setInputText', value.target.value)
+    },
+    updateInputColor(value) {
+      this.$store.commit('banner/setInputColor', value.target.value)
+    }
+  },
+  computed: {
+    ...mapState({
+      inputText: state => state.banner.inputText,
+      inputColor: state => state.banner.inputColor,
+      inputWysiwyg: state => state.banner.inputWysiwyg
+    })
+  },
+  mounted() {
+    this.$store.commit('banner/setInputColor', '#730E15')
+  }
 }
 </script>
 

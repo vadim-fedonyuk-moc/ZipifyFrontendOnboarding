@@ -1,14 +1,24 @@
 <template>
   <div class="ba-preview-section">
     <div>
-      <div class="ba-preview-section__banner"></div>
+      <div class="ba-preview-section__banner" :style="{ backgroundColor: inputColor}">
+        <p v-html="this.innerWysiwyg"></p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
-  name: "PreviewBanners"
+  name: "PreviewBanners",
+  computed: {
+    ...mapState({
+      inputColor: state => state.banner.inputColor,
+      innerWysiwyg: state => state.banner.inputWysiwyg
+    })
+  },
 }
 </script>
 
@@ -24,6 +34,6 @@ export default {
 .ba-preview-section__banner {
   width: 500px;
   height: 40px;
-  background-color: #730E15;
+  background-color: #FFFFFF;
 }
 </style>

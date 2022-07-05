@@ -4,8 +4,10 @@
       <h2 class="ba-banners-section__title">Banners</h2>
       <div class="ba-banners-section__line "></div>
     </div>
-    <div v-if="true" class="ba-banners-section__cards">
-      <Card/>
+    <div v-if="true"   class="ba-banners-section__cards">
+        <Card v-for="card in bannersData" :key="card"
+              :card="card"
+        />
     </div>
     <div v-else class="ba-banners-section__empty">
       <EmptySection/>
@@ -17,10 +19,21 @@
 <script>
 import EmptySection from "./EmptySection";
 import Card from "./Card";
+import {mapState} from "vuex";
 
 export default {
   name: "BannersSection",
-  components: {Card, EmptySection}
+
+  components: {Card, EmptySection},
+  computed: {
+    ...mapState({
+      bannersData: state => state.banner.bannersData
+    })
+  },
+  mounted() {
+    this.$store.dispatch('banner/fetchBanners')
+  },
+
 }
 </script>
 
