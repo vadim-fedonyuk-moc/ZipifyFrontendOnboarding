@@ -1,7 +1,7 @@
 <template>
   <div class="ba-preview-section">
     <div>
-      <div class="ba-preview-section__banner" :style="{ backgroundColor: inputColor}">
+      <div class="ba-preview-section__banner" :style="{backgroundColor: inputColor}">
         <p v-html="this.innerWysiwyg"></p>
       </div>
     </div>
@@ -35,5 +35,6 @@ export default {
   width: 500px;
   height: 40px;
   background-color: #FFFFFF;
+  text-align: center;
 }
 </style>

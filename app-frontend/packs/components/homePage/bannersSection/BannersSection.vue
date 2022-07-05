@@ -92,7 +92,7 @@ export default {
 }
 
 .ba-banners-section__cards {
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   flex-wrap: wrap;
 }

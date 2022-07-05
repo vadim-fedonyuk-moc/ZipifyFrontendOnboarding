@@ -43,7 +43,7 @@ export const bannerModule = {
                         color: state.inputColor
                     },
                     content: state.inputWysiwyg,
-                    product_id: 7380168376487
+                    product_id: 7380166475943
                 }
             })
                 .then( (res) => {

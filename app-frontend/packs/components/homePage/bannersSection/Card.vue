@@ -71,7 +71,7 @@ export default {
 <style scoped>
 .ba-card {
   padding: 15px;
-  margin-top: 20px;
+  margin: 20px 5px;
   width: 30%;
   border: solid 1px rgba(151, 151, 151, 0.35);
   border-radius: 5px;
