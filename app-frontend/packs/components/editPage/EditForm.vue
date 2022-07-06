@@ -28,6 +28,9 @@
           @update:model-value-wysiwyg="setInputWysiwyg"
       />
     </div>
+
+<!--    <button type="button" @click="res()">Res</button>-->
+
     <div class="ba-form-section__control-section">
       <router-link to="/">
         <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
@@ -40,11 +43,30 @@
 <script>
 import {mapMutations, mapState, mapActions} from 'vuex';
 import Wysiwyg from "./Wysiwyg";
+// import {ResourcePicker} from "@shopify/app-bridge/actions";
+// import app from "../../shared/shopifyApp";
+
 
 export default {
   name: "EditForm",
   components: {Wysiwyg},
-  methods:{
+  methods: {
+    // res() {
+    //   // this.openingProductPicker = true
+    //   const productPicker = ResourcePicker.create(app, {
+    //     resourceType: ResourcePicker.ResourceType.Product,
+    //     options: {
+    //       selectMultiple: false,
+    //       showHidden: false,
+    //     }
+    //   })
+    //   // console.log(productPicker);
+    //   productPicker.dispatch(ResourcePicker.Action.OPEN)
+    //   productPicker.subscribe(ResourcePicker.Action.SELECT, ({selection}) => {
+    //     this.openingProductPicker = false;
+    //     console.log(selection)
+    //   })
+    // },
     ...mapMutations({
       setInputText: 'banner/setInputText',
       setInputColor: 'banner/setInputColor',
