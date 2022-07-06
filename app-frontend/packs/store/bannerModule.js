@@ -1,19 +1,26 @@
 import axios from "axios"
+import router from "../router";
 
 export const bannerModule = {
     state() {
         return {
-            bannersData: [],
+            bannersData: Object,
+            dataBanner: Object,
             idBanner:'',
+            idProductBanner: Number,
             inputText:'',
             inputColor:'',
             inputWysiwyg: '',
+
         }
     },
     getters: {},
     mutations: {
         setData(state, data) {
             state.bannersData = data;
+        },
+        setDataBanner(state, data) {
+            state.dataBanner = data;
         },
         setIdBanner(state, id) {
             state.idBanner = id;
@@ -27,6 +34,9 @@ export const bannerModule = {
         setInputWysiwyg(state, value) {
             state.inputWysiwyg = value;
         },
+        setIdProductBanner(state, value) {
+            state.idProductBanner = value;
+        },
     },
     actions: {
         fetchBanners({commit}) {
@@ -36,6 +46,7 @@ export const bannerModule = {
                 })
         },
         createBanner({state}) {
+            console.log(state.idProductBanner)
               axios.post('/api/v1/banners', {
                 banner: {
                     title: state.inputText,
@@ -43,17 +54,37 @@ export const bannerModule = {
                         color: state.inputColor
                     },
                     content: state.inputWysiwyg,
-                    product_id: 7380166475943
+                    product_id: state.idProductBanner
                 }
             })
-                .then( (res) => {
+                  .then(() => router.push('/'))
+
+        },
+        fetchBanner({state,commit}) {
+            axios.get('/api/v1/banners/'+ state.idBanner)
+                .then((res) => {
+                    console.log(res.data.data)
                 })
+                .then(() => router.push('/edit'))
         },
         deleteBanner({state, dispatch}) {
             axios.delete('/api/v1/banners/' + state.idBanner)
                 .then((res) => {
                     dispatch('fetchBanners');
                 })
+        },
+        changeBanner({state}) {
+            axios.put('/api/v1/banners/' + state.idBanner, {
+                banner: {
+                    title: state.inputText,
+                    style: {
+                        color: state.inputColor
+                    },
+                    content: state.inputWysiwyg,
+                    product_id:state.idProductBanner
+                }
+            })
+                .then(() => router.push('/'));
         },
     },
     namespaced: true

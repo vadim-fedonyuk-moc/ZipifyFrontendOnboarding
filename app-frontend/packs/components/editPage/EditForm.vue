@@ -12,7 +12,11 @@
              @input="updateInput"
       >
     </div>
-    <input class="ba-form-section__target-product" type="button" value="Target product">
+    <button class="ba-form-section__target-product"
+            type="button"
+            @click="res()"
+
+    >Target value</button>
     <div>
       <label>Background color</label>
       <input class="ba-form-section__color-banner"
@@ -28,9 +32,6 @@
           @update:model-value-wysiwyg="setInputWysiwyg"
       />
     </div>
-
-<!--    <button type="button" @click="res()">Res</button>-->
-
     <div class="ba-form-section__control-section">
       <router-link to="/">
         <button class="ba-control-section__button ba-control-section__button--back" type="button">Back</button>
@@ -43,30 +44,29 @@
 <script>
 import {mapMutations, mapState, mapActions} from 'vuex';
 import Wysiwyg from "./Wysiwyg";
-// import {ResourcePicker} from "@shopify/app-bridge/actions";
-// import app from "../../shared/shopifyApp";
+import {ResourcePicker} from "@shopify/app-bridge/actions";
+import app from "../../shared/shopifyApp";
 
 
 export default {
   name: "EditForm",
   components: {Wysiwyg},
   methods: {
-    // res() {
-    //   // this.openingProductPicker = true
-    //   const productPicker = ResourcePicker.create(app, {
-    //     resourceType: ResourcePicker.ResourceType.Product,
-    //     options: {
-    //       selectMultiple: false,
-    //       showHidden: false,
-    //     }
-    //   })
-    //   // console.log(productPicker);
-    //   productPicker.dispatch(ResourcePicker.Action.OPEN)
-    //   productPicker.subscribe(ResourcePicker.Action.SELECT, ({selection}) => {
-    //     this.openingProductPicker = false;
-    //     console.log(selection)
-    //   })
-    // },
+    res() {
+      this.openingProductPicker = true
+      const productPicker = ResourcePicker.create(app, {
+        resourceType: ResourcePicker.ResourceType.Product,
+        options: {
+          selectMultiple: false,
+          showHidden: false,
+        }
+      })
+      productPicker.dispatch(ResourcePicker.Action.OPEN)
+      productPicker.subscribe(ResourcePicker.Action.SELECT, ({selection}) => {
+        this.openingProductPicker = false;
+        this.$store.commit('banner/setIdProductBanner', selection[0].id.slice(22))
+      })
+    },
     ...mapMutations({
       setInputText: 'banner/setInputText',
       setInputColor: 'banner/setInputColor',
@@ -83,7 +83,7 @@ export default {
     },
     updateInputColor(value) {
       this.$store.commit('banner/setInputColor', value.target.value)
-    }
+    },
   },
   computed: {
     ...mapState({
