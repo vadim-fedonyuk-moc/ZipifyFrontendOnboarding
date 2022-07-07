@@ -2,7 +2,7 @@
   <div class="ba-preview-section">
     <div>
       <div class="ba-preview-section__banner" :style="{backgroundColor: inputColor}">
-        <p v-html="this.innerWysiwyg"></p>
+        <p class="banner__text" v-html="this.innerWysiwyg"></p>
       </div>
     </div>
   </div>
@@ -33,8 +33,15 @@ export default {
 
 .ba-preview-section__banner {
   width: 500px;
-  height: 40px;
+  height: 50px;
   background-color: #FFFFFF;
+  display: flex;
   text-align: center;
+  justify-content: center;
+
+}
+
+.banner__text {
+  margin: 0;
 }
 </style>
