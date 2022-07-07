@@ -99,7 +99,6 @@ export default {
   border-top: solid 1px var(--color-line);
 }
 
-
 .title-section__title {
   margin: 5px 0;
 }

@@ -58,12 +58,11 @@ export const bannerModule = {
                 }
             })
                   .then(() => router.push('/'))
-
         },
-        fetchBanner({state,commit}) {
+        fetchBanner({state, commit}) {
             axios.get('/api/v1/banners/'+ state.idBanner)
                 .then((res) => {
-                    console.log(res.data.data)
+                    commit('setDataBanner', res.data.data);
                 })
                 .then(() => router.push('/edit'))
         },

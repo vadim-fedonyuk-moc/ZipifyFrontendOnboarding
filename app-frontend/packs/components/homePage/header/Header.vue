@@ -34,6 +34,7 @@ export default {
   position: relative;
   justify-content: center;
   display: flex;
+  background-color: var(--color-white);
 }
 
 .ba-header__logo {

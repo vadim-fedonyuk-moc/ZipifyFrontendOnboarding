@@ -16,7 +16,8 @@
             type="button"
             @click="res()"
 
-    >Target value</button>
+    >Target value
+    </button>
     <div>
       <label>Background color</label>
       <input class="ba-form-section__color-banner"
@@ -51,9 +52,11 @@ import app from "../../shared/shopifyApp";
 export default {
   name: "EditForm",
   components: {Wysiwyg},
+  data() {
+    return {}
+  },
   methods: {
     res() {
-      this.openingProductPicker = true
       const productPicker = ResourcePicker.create(app, {
         resourceType: ResourcePicker.ResourceType.Product,
         options: {
@@ -63,7 +66,6 @@ export default {
       })
       productPicker.dispatch(ResourcePicker.Action.OPEN)
       productPicker.subscribe(ResourcePicker.Action.SELECT, ({selection}) => {
-        this.openingProductPicker = false;
         this.$store.commit('banner/setIdProductBanner', selection[0].id.slice(22))
       })
     },
@@ -74,9 +76,14 @@ export default {
     }),
     ...mapActions({
       createBanner: 'banner/createBanner',
+      changeBanner: 'banner/changeBanner'
     }),
     formSubmit() {
-      this.createBanner();
+      if (this.$store.state.banner.idBanner) {
+        this.changeBanner()
+      } else {
+        this.createBanner()
+      }
     },
     updateInput(value) {
       this.$store.commit('banner/setInputText', value.target.value)
@@ -89,11 +96,12 @@ export default {
     ...mapState({
       inputText: state => state.banner.inputText,
       inputColor: state => state.banner.inputColor,
-      inputWysiwyg: state => state.banner.inputWysiwyg
+      inputWysiwyg: state => state.banner.inputWysiwyg,
+      idBanner: state => state.banner.idBanner
     })
   },
   mounted() {
-    this.$store.commit('banner/setInputColor', '#730E15')
+    this.$store.commit('banner/setInputColor', '#FFF')
   }
 }
 </script>
