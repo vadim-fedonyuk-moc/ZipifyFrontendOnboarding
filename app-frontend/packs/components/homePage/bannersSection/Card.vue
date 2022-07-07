@@ -7,7 +7,6 @@
             class="title-sections__edit"
             type="button"
             @click="onChange(card.id)"
-
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 128 128" width="32px" height="32px">
             <path
@@ -47,6 +46,7 @@
     <div
         class="ba-card__banner-view "
         v-html=card.content
+        :style="{backgroundColor: card.style.color}"
     >
     </div>
   </div>
@@ -111,6 +111,7 @@ export default {
 }
 
 .ba-card__banner-view {
+  height: 30px;
   text-align: center;
 }
 </style>
