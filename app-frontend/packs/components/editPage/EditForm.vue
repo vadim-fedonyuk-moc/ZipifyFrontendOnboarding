@@ -82,10 +82,10 @@ export default {
       }
     },
     updateInput(value) {
-      this.$store.commit('banner/setInputText', value.target.value)
+      this.setInputText(value.target.value)
     },
     updateInputColor(value) {
-      this.$store.commit('banner/setInputColor', value.target.value)
+      this.setInputColor(value.target.value)
     },
   },
   computed: {

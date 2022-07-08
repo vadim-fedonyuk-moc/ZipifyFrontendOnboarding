@@ -6,7 +6,7 @@
     </div>
     <div v-if="true" class="ba-banners-section__cards">
       <Card
-          v-for="card in bannersData"
+          v-for="card in bannersList"
           :key="card"
           :card="card"
           @onDeleteBanner="onDeleteBanner"/>
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapState({
-      bannersData: state => state.banner.bannersData
+      bannersList: state => state.banner.bannersList
     })
   },
 

@@ -4,9 +4,9 @@ import router from "../router";
 export const bannerModule = {
     state() {
         return {
-            bannersData: Object,
-            dataBanner: Object,
-            idBanner:'',
+            bannersList: Object,
+            currentBanner: Object,
+            idBanner:Number,
             idProductBanner: Number,
             inputText:'',
             inputColor:'',
@@ -17,10 +17,10 @@ export const bannerModule = {
     getters: {},
     mutations: {
         setData(state, data) {
-            state.bannersData = data;
+            state.bannersList = data;
         },
-        setDataBanner(state, data) {
-            state.dataBanner = data;
+        setCurrentBanner(state, data) {
+            state.currentBanner = data;
         },
         setIdBanner(state, id) {
             state.idBanner = id;
@@ -62,7 +62,7 @@ export const bannerModule = {
         fetchBanner({state, commit}) {
             axios.get('/api/v1/banners/'+ state.idBanner)
                 .then((res) => {
-                    commit('setDataBanner', res.data.data);
+                    commit('setCurrentBanner', res.data.data);
                 })
                 .then(() => router.push('/edit'))
         },

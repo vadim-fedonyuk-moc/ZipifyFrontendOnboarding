@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="ba-empty-description">Banners not yet created<br>Create a banner</p>
-    <div class="ba-empty-svg">
+    <div class="ba-empty-picture">
       <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 120 120" fill="none">
         <path
             d="M80.625 55.3125C82.1625 55.3125 83.4375 56.5875 83.4375 58.125C83.4375 59.6625 82.1625 60.9375 80.625 60.9375C79.0875 60.9375 77.8125 59.6625 77.8125 58.125C77.8125 56.5875 79.0875 55.3125 80.625 55.3125Z"
@@ -52,7 +52,7 @@ export default {
   font-size: 20px;
 }
 
-.ba-empty-svg {
+.ba-empty-picture {
   display: flex;
   justify-content: center;
 }
