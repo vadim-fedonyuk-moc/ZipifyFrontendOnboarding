@@ -1,10 +1,10 @@
 <template>
   <div @click="updateInputWysiwyg">
-    <div id="editor-container"
-         class="ba-editor-container"
-         @keydown="updateInputWysiwyg"
-    >
-  </div>
+    <div
+        id="editor-container"
+        class="ba-editor-container"
+        @keydown="updateInputWysiwyg">
+    </div>
   </div>
 </template>
 <script>
@@ -37,7 +37,7 @@ export default {
   }
 }
 </script>
-<style >
+<style>
 .ba-editor-container {
   height: 100px;
   width: 100%;

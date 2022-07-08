@@ -5,19 +5,18 @@
       <div class="ba-banners-section__line "></div>
     </div>
     <div v-if="true" class="ba-banners-section__cards">
-      <Card v-for="card in bannersData"
-            :key="card"
-            :card="card"
-            @onDeleteBanner="onDeleteBanner"
-      />
+      <Card
+          v-for="card in bannersData"
+          :key="card"
+          :card="card"
+          @onDeleteBanner="onDeleteBanner"/>
     </div>
     <div v-else class="ba-banners-section__empty">
       <EmptySection/>
     </div>
     <div
         v-if="isShowPopup"
-        @click.stop="this.onClosePopup"
-    >
+        @click.stop="this.onClosePopup">
       <div @click.stop>
         <PopupConfirm @closePopup="onClosePopup"/>
       </div>

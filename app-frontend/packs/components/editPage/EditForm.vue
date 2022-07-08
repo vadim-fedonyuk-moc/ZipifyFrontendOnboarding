@@ -6,25 +6,24 @@
     </div>
     <div class="ba-form-block">
       <label>Name banner</label>
-      <input class="ba-form-block__name-banner"
-             type="text" placeholder="Name banner"
-             :value="inputText"
-             @input="updateInput"
-      >
+      <input
+          class="ba-form-block__name-banner"
+          type="text" placeholder="Name banner"
+          :value="inputText"
+          @input="updateInput">
     </div>
-    <button class="ba-form-section__target-product"
-            type="button"
-            @click="res()"
-
-    >Target value
+    <button
+        class="ba-form-section__target-product"
+        type="button"
+        @click="resourcePicker()">Target value
     </button>
     <div>
       <label>Background color</label>
-      <input class="ba-form-section__color-banner"
-             type="color"
-             :value="inputColor"
-             @input="updateInputColor"
-      >
+      <input
+          class="ba-form-section__color-banner"
+          type="color"
+          :value="inputColor"
+          @input="updateInputColor">
     </div>
     <div>
       <p>Text banner*</p>
@@ -52,11 +51,8 @@ import app from "../../shared/shopifyApp";
 export default {
   name: "EditForm",
   components: {Wysiwyg},
-  data() {
-    return {}
-  },
   methods: {
-    res() {
+    resourcePicker() {
       const productPicker = ResourcePicker.create(app, {
         resourceType: ResourcePicker.ResourceType.Product,
         options: {

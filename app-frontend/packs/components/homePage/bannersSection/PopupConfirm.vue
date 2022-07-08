@@ -4,15 +4,15 @@
       <h3 class="ba-popup-page__main-text">Are you sure?</h3>
       <p class="ba-popup-page__text-description">Do you really want to delete banner “name banner”?</p>
       <div class="ba-popup-page__btn-wrap">
-        <button class="ba-btn-wrap__button ba-btn-wrap__button--cancel"
-                type="button"
-                @click="$emit('closePopup')"
-        >Cancel
+        <button
+            class="ba-btn-wrap__button ba-btn-wrap__button--cancel"
+            type="button"
+            @click="$emit('closePopup')">Cancel
         </button>
-        <button class="ba-btn-wrap__button ba-btn-wrap__button--delete"
-                type="button"
-                @click="deleteCard"
-        >Delete
+        <button
+            class="ba-btn-wrap__button ba-btn-wrap__button--delete"
+            type="button"
+            @click="deleteCard">Delete
         </button>
       </div>
     </div>
@@ -21,6 +21,7 @@
 
 <script>
 import {mapActions} from "vuex";
+
 export default {
   name: "PopupConfirm",
   methods: {
