@@ -6,7 +6,7 @@ export const bannerModule = {
         return {
             bannersList: Object,
             currentBanner: Object,
-            idBanner:Number,
+            idBanner:'',
             idProductBanner: Number,
             inputText:'',
             inputColor:'',
