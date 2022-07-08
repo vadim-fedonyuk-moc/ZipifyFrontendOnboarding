@@ -105,6 +105,11 @@ export default {
   background-color: var(--color-white);
   margin-right: 10px;
   border: none;
+  cursor: pointer;
+}
+
+.title-sections__edit:hover {
+  transform: scale(1.1);
 }
 
 .ba-card__banner-view {

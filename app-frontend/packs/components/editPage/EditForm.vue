@@ -167,6 +167,11 @@ export default {
   height: 30px;
   margin: 15px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.ba-control-section__button:hover {
+  transform: scale(1.1);
 }
 
 .ba-control-section__button--back {

@@ -54,5 +54,10 @@ export default {
   color: var(--color-white);
   border-radius: 5px;
   font-size: 28px;
+  cursor: pointer;
+}
+
+.ba-header__create:hover {
+  transform: scale(1.1);
 }
 </style>
