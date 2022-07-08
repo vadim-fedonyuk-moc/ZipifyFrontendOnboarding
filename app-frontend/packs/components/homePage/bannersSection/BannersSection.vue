@@ -4,7 +4,7 @@
       <h2 class="ba-banners-section__title">Banners</h2>
       <div class="ba-banners-section__line "></div>
     </div>
-    <div v-if="true" class="ba-banners-section__cards">
+    <div v-if="this.$store.state.banner.bannersList.length" class="ba-banners-section__cards">
       <Card
           v-for="card in bannersList"
           :key="card"
