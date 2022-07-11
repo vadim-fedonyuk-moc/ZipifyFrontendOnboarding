@@ -1,10 +1,8 @@
 <template>
   <div class="ba-preview-section">
-    <div>
       <div class="ba-preview-section__banner" :style="{backgroundColor: inputColor}">
         <p class="banner__text" v-html="this.innerWysiwyg"></p>
       </div>
-    </div>
   </div>
 </template>
 

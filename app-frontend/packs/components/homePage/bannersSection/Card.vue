@@ -1,21 +1,21 @@
 <template>
   <div class="ba-card">
     <div class="ba-card__title-section">
-      <p class="title-section__title ">{{ card.title }}</p>
+      <p class="ba-title-section__title ">{{ card.title }}</p>
       <div>
         <button
-            class="title-sections__edit"
+            class="ba-title-sections__edit"
             type="button"
-            @click="onChange(card.id)">
+            @click="onChange">
           <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 128 128" width="32px" height="32px">
             <path
                 d="M 79.335938 15.667969 C 78.064453 15.622266 76.775 15.762109 75.5 16.099609 C 72.1 16.999609 69.299609 19.199219 67.599609 22.199219 L 64 28.699219 C 63.2 30.099219 63.699609 32.000781 65.099609 32.800781 L 82.400391 42.800781 C 82.900391 43.100781 83.400391 43.199219 83.900391 43.199219 C 84.200391 43.199219 84.399219 43.199609 84.699219 43.099609 C 85.499219 42.899609 86.1 42.399219 86.5 41.699219 L 90.199219 35.199219 C 91.899219 32.199219 92.4 28.700781 91.5 25.300781 C 90.6 21.900781 88.400391 19.100391 85.400391 17.400391 C 83.525391 16.337891 81.455078 15.744141 79.335938 15.667969 z M 60.097656 38.126953 C 59.128906 38.201172 58.199219 38.724609 57.699219 39.599609 L 27.5 92 C 24.1 97.8 22.200781 104.30039 21.800781 110.90039 L 21 123.80078 C 20.9 124.90078 21.5 125.99961 22.5 126.59961 C 23 126.89961 23.5 127 24 127 C 24.6 127 25.199219 126.8 25.699219 126.5 L 36.5 119.40039 C 42 115.70039 46.7 110.8 50 105 L 80.300781 52.599609 C 81.100781 51.199609 80.599219 49.3 79.199219 48.5 C 77.799219 47.7 75.899609 48.199609 75.099609 49.599609 L 44.800781 102 C 41.900781 106.9 37.899609 111.20039 33.099609 114.40039 L 27.300781 118.19922 L 27.699219 111.30078 C 27.999219 105.60078 29.699609 100 32.599609 95 L 62.900391 42.599609 C 63.700391 41.199609 63.200781 39.3 61.800781 38.5 C 61.275781 38.2 60.678906 38.082422 60.097656 38.126953 z M 49 121 C 47.3 121 46 122.3 46 124 C 46 125.7 47.3 127 49 127 L 89 127 C 90.7 127 92 125.7 92 124 C 92 122.3 90.7 121 89 121 L 49 121 z M 104 121 A 3 3 0 0 0 101 124 A 3 3 0 0 0 104 127 A 3 3 0 0 0 107 124 A 3 3 0 0 0 104 121 z"/>
           </svg>
         </button>
         <button
-            class="title-sections__edit"
+            class="ba-title-sections__edit"
             type="button"
-            @click="onDelete(card.id)">
+            @click="onDelete">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
             <path
                 d="M24 31H8C7.20435 31 6.44129 30.6839 5.87868 30.1213C5.31607 29.5587 5 28.7956 5 28V9C5 8.73478 5.10536 8.48043 5.29289 8.29289C5.48043 8.10536 5.73478 8 6 8C6.26522 8 6.51957 8.10536 6.70711 8.29289C6.89464 8.48043 7 8.73478 7 9V28C7 28.2652 7.10536 28.5196 7.29289 28.7071C7.48043 28.8946 7.73478 29 8 29H24C24.2652 29 24.5196 28.8946 24.7071 28.7071C24.8946 28.5196 25 28.2652 25 28V9C25 8.73478 25.1054 8.48043 25.2929 8.29289C25.4804 8.10536 25.7348 8 26 8C26.2652 8 26.5196 8.10536 26.7071 8.29289C26.8946 8.48043 27 8.73478 27 9V28C27 28.7956 26.6839 29.5587 26.1213 30.1213C25.5587 30.6839 24.7956 31 24 31Z"
@@ -60,12 +60,12 @@ export default {
     card: Object
   },
   methods: {
-    onDelete(id) {
+    onDelete() {
       this.$emit('onDeleteBanner')
-      this.$store.commit('banner/setIdBanner', id)
+      this.$store.commit('banner/setIdBanner', this.card.id)
     },
-    onChange(id) {
-      this.$store.commit('banner/setIdBanner', id)
+    onChange() {
+      this.$store.commit('banner/setIdBanner', this.card.id)
       this.fetchBanner();
     },
     ...mapActions({
@@ -97,18 +97,18 @@ export default {
   border-top: solid 1px var(--color-line);
 }
 
-.title-section__title {
+.ba-title-section__title {
   margin: 5px 0;
 }
 
-.title-sections__edit {
+.ba-title-sections__edit {
   background-color: var(--color-white);
   margin-right: 10px;
   border: none;
   cursor: pointer;
 }
 
-.title-sections__edit:hover {
+.ba-title-sections__edit:hover {
   transform: scale(1.1);
 }
 

@@ -1,10 +1,18 @@
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils';
 import Header from "../../app-frontend/packs/components/homePage/header/Header";
 
-describe('Header.vue', () => {
-  it('include div', () => {
-    const wrapper = shallowMount(Header)
+describe('component Button', () => {
+  const wrapper = shallowMount(Header, {
+    props: {
+      type: 'button'
+    }
+  });
 
-    expect(wrapper.find('div'))
-  })
-})
+  it('test button', () => {
+    expect(wrapper.find('.ba-header__create').exists()).toBe(true);
+  });
+
+  it('trigger button', () => {
+    wrapper.find('.ba-header__create').trigger('click');
+  });
+});
