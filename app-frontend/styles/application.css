@@ -1,3 +1,15 @@
-.app {
-  font-size: 20px;
+@import "colors.css";
+
+.ba-app {
+    height: 100%;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
+    font-size: 18px;
+    line-height: 20px;
+    font-family: "Bai Jamjuree";
 }
